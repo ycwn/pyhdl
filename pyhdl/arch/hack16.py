@@ -133,10 +133,6 @@ def hack16():
 	clk = clock()
 
 	cpu = cpu16(clk.outputs[0], i, di, wr, rd, pc, a, do)
-
-	addr14 = not1(a.nets[14])
-	addr14 = not1(a.nets[13])
-
 	sel = sel4(a.nets[12], a.nets[13], a.nets[14], a.nets[15])
 	io  = buf1(sel.outputs[15])
 	mem = not1(sel.outputs[15])
