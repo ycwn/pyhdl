@@ -9,3 +9,5 @@ from .parts.logic32 import *
 from .parts.clock  import *
 from .parts.memory import *
 
+from .arch.hack16 import *
+
