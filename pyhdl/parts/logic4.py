@@ -25,12 +25,12 @@ def adc4(a, b, ci, x, co):
 
 	for n in range(3):
 
-		adc   = adc1(a.nets[n], b.nets[n], carry, x.nets[n])
+		adc   = adc1(a[n], b[n], carry, x[n])
 		carry = adc.outputs[1]
 
 		adcs.append(adc)
 
-	adcs.append(adc1(a.nets[3], b.nets[3], carry, x.nets[3], co))
+	adcs.append(adc1(a[3], b[3], carry, x[3], co))
 	return adcs
 
 
@@ -54,8 +54,8 @@ def sub4(a, b, x):
 @module("EQZ4", [ "B4" ], [ "N" ])
 def eqz4(a, x):
 
-	or0_0 = or1(a.nets[0], a.nets[ 1])
-	or0_1 = or1(a.nets[2], a.nets[ 3])
+	or0_0 = or1(a[0], a[ 1])
+	or0_1 = or1(a[2], a[ 3])
 
 	or1_0 = nor1(or0_0.outputs[0], or0_1.outputs[0], x)
 
@@ -68,7 +68,7 @@ def eqz4(a, x):
 
 @module("LTZ4", [ "B4" ], [ "N" ])
 def ltz4(a, x):
-	return [ buf1(a.nets[3], x) ]
+	return [ buf1(a[3], x) ]
 
 
 

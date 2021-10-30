@@ -43,12 +43,12 @@ def adc16(a, b, ci, x, co):
 
 	for n in range(15):
 
-		adc   = adc1(a.nets[n], b.nets[n], carry, x.nets[n])
+		adc   = adc1(a[n], b[n], carry, x[n])
 		carry = adc.outputs[1]
 
 		adcs.append(adc)
 
-	adcs.append(adc1(a.nets[15], b.nets[15], carry, x.nets[15], co))
+	adcs.append(adc1(a[15], b[15], carry, x[15], co))
 	return adcs
 
 
@@ -72,14 +72,14 @@ def sub16(a, b, x):
 @module("EQZ16", [ "B16" ], [ "N" ])
 def eqz16(a, x):
 
-	or0_0 = or1(a.nets[ 0], a.nets[ 1])
-	or0_1 = or1(a.nets[ 2], a.nets[ 3])
-	or0_2 = or1(a.nets[ 4], a.nets[ 5])
-	or0_3 = or1(a.nets[ 6], a.nets[ 7])
-	or0_4 = or1(a.nets[ 8], a.nets[ 9])
-	or0_5 = or1(a.nets[10], a.nets[11])
-	or0_6 = or1(a.nets[12], a.nets[13])
-	or0_7 = or1(a.nets[14], a.nets[15])
+	or0_0 = or1(a[ 0], a[ 1])
+	or0_1 = or1(a[ 2], a[ 3])
+	or0_2 = or1(a[ 4], a[ 5])
+	or0_3 = or1(a[ 6], a[ 7])
+	or0_4 = or1(a[ 8], a[ 9])
+	or0_5 = or1(a[10], a[11])
+	or0_6 = or1(a[12], a[13])
+	or0_7 = or1(a[14], a[15])
 
 	or1_0 = or1(or0_0.outputs[0], or0_1.outputs[0])
 	or1_1 = or1(or0_2.outputs[0], or0_3.outputs[0])
@@ -102,7 +102,7 @@ def eqz16(a, x):
 
 @module("LTZ16", [ "B16" ], [ "N" ])
 def ltz16(a, x):
-	return [ buf1(a.nets[15], x) ]
+	return [ buf1(a[15], x) ]
 
 
 

@@ -65,21 +65,21 @@ def indec16(x, ci, sm, zx, nx, zy, ny, f, no, a, d, da, lt, eq, gt, w):
 
 	iw = and16s(x, m_i.outputs[0])
 
-	o_sm = buf1(iw.outputs[0].nets[12], sm)
-	o_zx = buf1(iw.outputs[0].nets[11], zx)
-	o_nx = buf1(iw.outputs[0].nets[10], nx)
-	o_zy = buf1(iw.outputs[0].nets[ 9], zy)
-	o_ny = buf1(iw.outputs[0].nets[ 8], ny)
-	o_f  = buf1(iw.outputs[0].nets[ 7], f)
-	o_no = buf1(iw.outputs[0].nets[ 6], no)
+	o_sm = buf1(iw.outputs[0][12], sm)
+	o_zx = buf1(iw.outputs[0][11], zx)
+	o_nx = buf1(iw.outputs[0][10], nx)
+	o_zy = buf1(iw.outputs[0][ 9], zy)
+	o_ny = buf1(iw.outputs[0][ 8], ny)
+	o_f  = buf1(iw.outputs[0][ 7], f)
+	o_no = buf1(iw.outputs[0][ 6], no)
 
-	o_a  = or1( iw.outputs[0].nets[5], m_d.outputs[0], a)
-	o_d  = buf1(iw.outputs[0].nets[4], d)
-	o_da = buf1(iw.outputs[0].nets[3], da)
+	o_a  = or1( iw.outputs[0][5], m_d.outputs[0], a)
+	o_d  = buf1(iw.outputs[0][4], d)
+	o_da = buf1(iw.outputs[0][3], da)
 
-	o_lt = buf1(iw.outputs[0].nets[2], lt)
-	o_eq = buf1(iw.outputs[0].nets[1], eq)
-	o_gt = buf1(iw.outputs[0].nets[0], gt)
+	o_lt = buf1(iw.outputs[0][2], lt)
+	o_eq = buf1(iw.outputs[0][1], eq)
+	o_gt = buf1(iw.outputs[0][0], gt)
 
 	o_w = and16s(x, m_d.outputs[0], w)
 
@@ -133,7 +133,7 @@ def hack16():
 	clk = clock()
 
 	cpu = cpu16(clk.outputs[0], i, di, wr, rd, pc, a, do)
-	sel = sel4(a.nets[12], a.nets[13], a.nets[14], a.nets[15])
+	sel = sel4(a[12], a[13], a[14], a[15])
 	io  = buf1(sel.outputs[15])
 	mem = not1(sel.outputs[15])
 

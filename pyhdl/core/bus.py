@@ -16,6 +16,20 @@ class bus:
 
 
 
+	def __getitem__(self, n):
+
+		subnets = self.nets[n]
+
+		if isinstance(subnets, list):
+			subbus = bus(self.name, 0)
+			subbus.nets = subnets
+			return subbus
+
+		else:
+			return subnets
+
+
+
 	@property
 	def value(self):
 		val = 0

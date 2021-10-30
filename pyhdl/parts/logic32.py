@@ -25,12 +25,12 @@ def adc32(a, b, ci, x, co):
 
 	for n in range(31):
 
-		adc   = adc1(a.nets[n], b.nets[n], carry, x.nets[n])
+		adc   = adc1(a[n], b[n], carry, x[n])
 		carry = adc.outputs[1]
 
 		adcs.append(adc)
 
-	adcs.append(adc1(a.nets[31], b.nets[31], carry, x.nets[31], co))
+	adcs.append(adc1(a[31], b[31], carry, x[31], co))
 	return adcs
 
 
@@ -54,22 +54,22 @@ def sub32(a, b, x):
 @module("EQZ32", [ "B32" ], [ "N" ])
 def eqz32(a, x):
 
-	or0_0  = or1(a.nets[ 0], a.nets[ 1])
-	or0_1  = or1(a.nets[ 2], a.nets[ 3])
-	or0_2  = or1(a.nets[ 4], a.nets[ 5])
-	or0_3  = or1(a.nets[ 6], a.nets[ 7])
-	or0_4  = or1(a.nets[ 8], a.nets[ 9])
-	or0_5  = or1(a.nets[10], a.nets[11])
-	or0_6  = or1(a.nets[12], a.nets[13])
-	or0_7  = or1(a.nets[14], a.nets[15])
-	or0_8  = or1(a.nets[16], a.nets[17])
-	or0_9  = or1(a.nets[18], a.nets[19])
-	or0_10 = or1(a.nets[20], a.nets[21])
-	or0_11 = or1(a.nets[22], a.nets[23])
-	or0_12 = or1(a.nets[24], a.nets[25])
-	or0_13 = or1(a.nets[26], a.nets[27])
-	or0_14 = or1(a.nets[28], a.nets[29])
-	or0_15 = or1(a.nets[30], a.nets[31])
+	or0_0  = or1(a[ 0], a[ 1])
+	or0_1  = or1(a[ 2], a[ 3])
+	or0_2  = or1(a[ 4], a[ 5])
+	or0_3  = or1(a[ 6], a[ 7])
+	or0_4  = or1(a[ 8], a[ 9])
+	or0_5  = or1(a[10], a[11])
+	or0_6  = or1(a[12], a[13])
+	or0_7  = or1(a[14], a[15])
+	or0_8  = or1(a[16], a[17])
+	or0_9  = or1(a[18], a[19])
+	or0_10 = or1(a[20], a[21])
+	or0_11 = or1(a[22], a[23])
+	or0_12 = or1(a[24], a[25])
+	or0_13 = or1(a[26], a[27])
+	or0_14 = or1(a[28], a[29])
+	or0_15 = or1(a[30], a[31])
 
 	or1_0 = or1(or0_0.outputs[0],  or0_1.outputs[0])
 	or1_1 = or1(or0_2.outputs[0],  or0_3.outputs[0])
@@ -103,7 +103,7 @@ def eqz32(a, x):
 
 @module("LTZ32", [ "B32" ], [ "N" ])
 def ltz32(a, x):
-	return [ buf1(a.nets[31], x) ]
+	return [ buf1(a[31], x) ]
 
 
 

@@ -25,12 +25,12 @@ def adc8(a, b, ci, x, co):
 
 	for n in range(7):
 
-		adc   = adc1(a.nets[n], b.nets[n], carry, x.nets[n])
+		adc   = adc1(a[n], b[n], carry, x[n])
 		carry = adc.outputs[1]
 
 		adcs.append(adc)
 
-	adcs.append(adc1(a.nets[7], b.nets[7], carry, x.nets[7], co))
+	adcs.append(adc1(a[7], b[7], carry, x[7], co))
 	return adcs
 
 
@@ -54,10 +54,10 @@ def sub8(a, b, x):
 @module("EQZ8", [ "B8" ], [ "N" ])
 def eqz8(a, x):
 
-	or0_0 = or1(a.nets[ 0], a.nets[ 1])
-	or0_1 = or1(a.nets[ 2], a.nets[ 3])
-	or0_2 = or1(a.nets[ 4], a.nets[ 5])
-	or0_3 = or1(a.nets[ 6], a.nets[ 7])
+	or0_0 = or1(a[ 0], a[ 1])
+	or0_1 = or1(a[ 2], a[ 3])
+	or0_2 = or1(a[ 4], a[ 5])
+	or0_3 = or1(a[ 6], a[ 7])
 
 	or1_0 = or1(or0_0.outputs[0], or0_1.outputs[0])
 	or1_1 = or1(or0_2.outputs[0], or0_3.outputs[0])
@@ -74,7 +74,7 @@ def eqz8(a, x):
 
 @module("LTZ8", [ "B8" ], [ "N" ])
 def ltz8(a, x):
-	return [ buf1(a.nets[7], x) ]
+	return [ buf1(a[7], x) ]
 
 
 
