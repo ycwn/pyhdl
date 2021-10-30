@@ -123,13 +123,15 @@ def dmux1(s, c, x0, x1):
 @module("DFF", [ "N", "N" ], [ "N", "N" ])
 def dff1(c, d, q, p):
 
+	b = not1(d)
+
 	sr0_q = nand1(c, d)
-	sr0_p = nand1(c, sr0_q.outputs[0])
+	sr0_p = nand1(c, b.outputs[0])
 
 	sr1_q = nand1(sr0_q.outputs[0], p, q)
 	sr1_p = nand1(q, sr0_p.outputs[0], p)
 
-	return [ sr0_p, sr0_q, sr1_p, sr1_q ]
+	return [ b, sr0_p, sr0_q, sr1_p, sr1_q ]
 
 
 
