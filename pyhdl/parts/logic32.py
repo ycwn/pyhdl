@@ -26,7 +26,7 @@ def adc32(a, b, ci, x, co):
 	for n in range(31):
 
 		adc   = adc1(a[n], b[n], carry, x[n])
-		carry = adc.outputs[1]
+		carry = adc.o
 
 		adcs.append(adc)
 
@@ -45,7 +45,7 @@ def inc32(a, x):
 def sub32(a, b, x):
 
 	neg = not32(b)
-	adc = adc32(a, neg.outputs[0], one, x)
+	adc = adc32(a, neg.x, one, x)
 
 	return [ neg, adc ]
 
@@ -71,24 +71,24 @@ def eqz32(a, x):
 	or0_14 = or1(a[28], a[29])
 	or0_15 = or1(a[30], a[31])
 
-	or1_0 = or1(or0_0.outputs[0],  or0_1.outputs[0])
-	or1_1 = or1(or0_2.outputs[0],  or0_3.outputs[0])
-	or1_2 = or1(or0_4.outputs[0],  or0_5.outputs[0])
-	or1_3 = or1(or0_6.outputs[0],  or0_7.outputs[0])
-	or1_4 = or1(or0_8.outputs[0],  or0_9.outputs[0])
-	or1_5 = or1(or0_10.outputs[0], or0_11.outputs[0])
-	or1_6 = or1(or0_12.outputs[0], or0_13.outputs[0])
-	or1_7 = or1(or0_14.outputs[0], or0_15.outputs[0])
+	or1_0 = or1(or0_0.x,  or0_1.x)
+	or1_1 = or1(or0_2.x,  or0_3.x)
+	or1_2 = or1(or0_4.x,  or0_5.x)
+	or1_3 = or1(or0_6.x,  or0_7.x)
+	or1_4 = or1(or0_8.x,  or0_9.x)
+	or1_5 = or1(or0_10.x, or0_11.x)
+	or1_6 = or1(or0_12.x, or0_13.x)
+	or1_7 = or1(or0_14.x, or0_15.x)
 
-	or2_0 = or1(or1_0.outputs[0], or1_1.outputs[0])
-	or2_1 = or1(or1_2.outputs[0], or1_3.outputs[0])
-	or2_2 = or1(or1_4.outputs[0], or1_5.outputs[0])
-	or2_3 = or1(or1_6.outputs[0], or1_7.outputs[0])
+	or2_0 = or1(or1_0.x, or1_1.x)
+	or2_1 = or1(or1_2.x, or1_3.x)
+	or2_2 = or1(or1_4.x, or1_5.x)
+	or2_3 = or1(or1_6.x, or1_7.x)
 
-	or3_0 = or1(or2_0.outputs[0], or2_1.outputs[0])
-	or3_1 = or1(or2_2.outputs[0], or2_3.outputs[0])
+	or3_0 = or1(or2_0.x, or2_1.x)
+	or3_1 = or1(or2_2.x, or2_3.x)
 
-	or4_0 = nor1(or3_0.outputs[0], or3_1.outputs[0], x)
+	or4_0 = nor1(or3_0.x, or3_1.x, x)
 
 	return [
 		or0_0, or0_1, or0_2,  or0_3,  or0_4,  or0_5,  or0_6,  or0_7,
@@ -117,8 +117,8 @@ def reg32(s, c, d, x):
 def ctr32(s, c, d, x):
 
 	inc = inc32(x)
-	mux = mux32(s, inc.outputs[0], d);
-	reg = reg32(one, c, mux.outputs[0], x)
+	mux = mux32(s, inc.x, d);
+	reg = reg32(one, c, mux.x, x)
 
 	return [ inc, mux, reg ]
 

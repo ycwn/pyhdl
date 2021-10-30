@@ -26,7 +26,7 @@ def adc4(a, b, ci, x, co):
 	for n in range(3):
 
 		adc   = adc1(a[n], b[n], carry, x[n])
-		carry = adc.outputs[1]
+		carry = adc.o
 
 		adcs.append(adc)
 
@@ -45,7 +45,7 @@ def inc4(a, x):
 def sub4(a, b, x):
 
 	neg = not4(b)
-	adc = adc4(a, neg.outputs[0], one, x)
+	adc = adc4(a, neg.x, one, x)
 
 	return [ neg, adc ]
 
@@ -54,10 +54,10 @@ def sub4(a, b, x):
 @module("EQZ4", [ "B4" ], [ "N" ])
 def eqz4(a, x):
 
-	or0_0 = or1(a[0], a[ 1])
-	or0_1 = or1(a[2], a[ 3])
+	or0_0 = or1(a[0], a[1])
+	or0_1 = or1(a[2], a[3])
 
-	or1_0 = nor1(or0_0.outputs[0], or0_1.outputs[0], x)
+	or1_0 = nor1(or0_0.x, or0_1.x, x)
 
 	return [
 		or0_0, or0_1,
@@ -82,8 +82,8 @@ def reg4(s, c, d, x):
 def ctr4(s, c, d, x):
 
 	inc = inc4(x)
-	mux = mux4(s, inc.outputs[0], d);
-	reg = reg4(one, c, mux.outputs[0], x)
+	mux = mux4(s, inc.x, d);
+	reg = reg4(one, c, mux.x, x)
 
 	return [ inc, mux, reg ]
 
@@ -97,31 +97,31 @@ def sel4(x0, x1, x2, x3, y0, y1, y2, y3, y4, y5, y6, y7, y8, y9, y10, y11, y12, 
 	n2 = not1(x2)
 	n3 = not1(x3)
 
-	g_n0_n1 = and1(n0.outputs[0], n1.outputs[0])
-	g_n2_n3 = and1(n2.outputs[0], n3.outputs[0])
-	g_x0_n1 = and1(x0,            n1.outputs[0])
-	g_n0_x1 = and1(n0.outputs[0], x1)
-	g_x0_x1 = and1(x0,            x1)
-	g_x2_n3 = and1(x2,            n3.outputs[0])
-	g_n2_x3 = and1(n2.outputs[0], x3)
-	g_x2_x3 = and1(x2,            x3)
+	g_n0_n1 = and1(n0.x, n1.x)
+	g_n2_n3 = and1(n2.x, n3.x)
+	g_x0_n1 = and1(x0,   n1.x)
+	g_n0_x1 = and1(n0.x, x1)
+	g_x0_x1 = and1(x0,   x1)
+	g_x2_n3 = and1(x2,   n3.x)
+	g_n2_x3 = and1(n2.x, x3)
+	g_x2_x3 = and1(x2,   x3)
 
-	g_y00 = and1(g_n0_n1.outputs[0], g_n2_n3.outputs[0], y0)
-	g_y01 = and1(g_x0_n1.outputs[0], g_n2_n3.outputs[0], y1)
-	g_y02 = and1(g_n0_x1.outputs[0], g_n2_n3.outputs[0], y2)
-	g_y03 = and1(g_x0_x1.outputs[0], g_n2_n3.outputs[0], y3)
-	g_y04 = and1(g_n0_n1.outputs[0], g_x2_n3.outputs[0], y4)
-	g_y05 = and1(g_x0_n1.outputs[0], g_x2_n3.outputs[0], y5)
-	g_y06 = and1(g_n0_x1.outputs[0], g_x2_n3.outputs[0], y6)
-	g_y07 = and1(g_x0_x1.outputs[0], g_x2_n3.outputs[0], y7)
-	g_y08 = and1(g_n0_n1.outputs[0], g_n2_x3.outputs[0], y8)
-	g_y09 = and1(g_x0_n1.outputs[0], g_n2_x3.outputs[0], y9)
-	g_y10 = and1(g_n0_x1.outputs[0], g_n2_x3.outputs[0], y10)
-	g_y11 = and1(g_x0_x1.outputs[0], g_n2_x3.outputs[0], y11)
-	g_y12 = and1(g_n0_n1.outputs[0], g_x2_x3.outputs[0], y12)
-	g_y13 = and1(g_x0_n1.outputs[0], g_x2_x3.outputs[0], y13)
-	g_y14 = and1(g_n0_x1.outputs[0], g_x2_x3.outputs[0], y14)
-	g_y15 = and1(g_x0_x1.outputs[0], g_x2_x3.outputs[0], y15)
+	g_y00 = and1(g_n0_n1.x, g_n2_n3.x, y0)
+	g_y01 = and1(g_x0_n1.x, g_n2_n3.x, y1)
+	g_y02 = and1(g_n0_x1.x, g_n2_n3.x, y2)
+	g_y03 = and1(g_x0_x1.x, g_n2_n3.x, y3)
+	g_y04 = and1(g_n0_n1.x, g_x2_n3.x, y4)
+	g_y05 = and1(g_x0_n1.x, g_x2_n3.x, y5)
+	g_y06 = and1(g_n0_x1.x, g_x2_n3.x, y6)
+	g_y07 = and1(g_x0_x1.x, g_x2_n3.x, y7)
+	g_y08 = and1(g_n0_n1.x, g_n2_x3.x, y8)
+	g_y09 = and1(g_x0_n1.x, g_n2_x3.x, y9)
+	g_y10 = and1(g_n0_x1.x, g_n2_x3.x, y10)
+	g_y11 = and1(g_x0_x1.x, g_n2_x3.x, y11)
+	g_y12 = and1(g_n0_n1.x, g_x2_x3.x, y12)
+	g_y13 = and1(g_x0_n1.x, g_x2_x3.x, y13)
+	g_y14 = and1(g_n0_x1.x, g_x2_x3.x, y14)
+	g_y15 = and1(g_x0_x1.x, g_x2_x3.x, y15)
 
 	return [
 		n0, n1, n2, n3,

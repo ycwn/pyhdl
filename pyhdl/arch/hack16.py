@@ -11,13 +11,13 @@ from pyhdl.parts.clock   import *
 
 
 @module("UNALU16", [ "N", "N", "B16" ], [ "B16" ])
-def unalu16(z, n, x, y):
+def unalu16(z, n, a, x):
 
-	zr0 = not1(z)
-	zr1 = and16s(x, zr0.outputs[0])
-	neg = xor16s(zr1.outputs[0], n, y)
+	nz = not1(z)
+	az = and16s(a, nz.x)
+	xa = xor16s(az.x, n, x)
 
-	return [ zr0, zr1, neg ]
+	return [ nz, az, xa ]
 
 
 
@@ -27,11 +27,11 @@ def alu16(zx, nx, zy, ny, f, no, x, y, z):
 	xx = unalu16(zx, nx, x)
 	yy = unalu16(zy, ny, y)
 
-	op_and = and16(xx.outputs[0], yy.outputs[0])
-	op_add = adc16(xx.outputs[0], yy.outputs[0], zero)
+	op_and = and16(xx.x, yy.x)
+	op_add = adc16(xx.x, yy.x, zero)
 
-	op = mux16(f, op_and.outputs[0], op_add.outputs[0])
-	zz = xor16s(op.outputs[0], no, z)
+	op = mux16(f, op_and.x, op_add.x)
+	zz = xor16s(op.x, no, z)
 
 	return [ xx, yy, op_and, op_add, op, zz ]
 
@@ -43,47 +43,47 @@ def cmp16(lt, eq, gt, x, c):
 	ltz = ltz16(x)
 	eqz = eqz16(x)
 
-	leqz = or1(ltz.outputs[0], eqz.outputs[0])
-	gtz  = not1(leqz.outputs[0])
+	leqz = or1(ltz.x, eqz.x)
+	gtz  = not1(leqz.x)
 
-	clt = and1(ltz.outputs[0], lt)
-	ceq = and1(eqz.outputs[0], eq)
-	cgt = and1(gtz.outputs[0], gt)
+	clt = and1(ltz.x, lt)
+	ceq = and1(eqz.x, eq)
+	cgt = and1(gtz.x, gt)
 
-	c0 = or1(clt.outputs[0], ceq.outputs[0])
-	c1 = or1(c0.outputs[0],  cgt.outputs[0], c)
+	c0 = or1(clt.x, ceq.x)
+	c1 = or1(c0.x,  cgt.x, c)
 
 	return [ ltz, eqz, leqz, gtz, clt, ceq, cgt, c0, c1 ]
 
 
 
 @module("INDEC16", [ "B16" ], [ "N", "N", "N", "N", "N", "N", "N", "N", "N", "N", "N", "N", "N", "N", "B16" ])
-def indec16(x, ci, sm, zx, nx, zy, ny, f, no, a, d, da, lt, eq, gt, w):
+def indec16(x, ci, sm, zx, nx, zy, ny, f, no, a, d, m, lt, eq, gt, w):
 
 	m_i = ltz16(x, ci)
-	m_d = not1(m_i.outputs[0])
+	m_d = not1(m_i.x)
 
-	iw = and16s(x, m_i.outputs[0])
+	iw = and16s(x, m_i.x)
 
-	o_sm = buf1(iw.outputs[0][12], sm)
-	o_zx = buf1(iw.outputs[0][11], zx)
-	o_nx = buf1(iw.outputs[0][10], nx)
-	o_zy = buf1(iw.outputs[0][ 9], zy)
-	o_ny = buf1(iw.outputs[0][ 8], ny)
-	o_f  = buf1(iw.outputs[0][ 7], f)
-	o_no = buf1(iw.outputs[0][ 6], no)
+	o_sm = buf1(iw.x[12], sm)
+	o_zx = buf1(iw.x[11], zx)
+	o_nx = buf1(iw.x[10], nx)
+	o_zy = buf1(iw.x[ 9], zy)
+	o_ny = buf1(iw.x[ 8], ny)
+	o_f  = buf1(iw.x[ 7], f)
+	o_no = buf1(iw.x[ 6], no)
 
-	o_a  = or1( iw.outputs[0][5], m_d.outputs[0], a)
-	o_d  = buf1(iw.outputs[0][4], d)
-	o_da = buf1(iw.outputs[0][3], da)
+	o_a = or1( iw.x[5], m_d.x, a)
+	o_d = buf1(iw.x[4], d)
+	o_m = buf1(iw.x[3], m)
 
-	o_lt = buf1(iw.outputs[0][2], lt)
-	o_eq = buf1(iw.outputs[0][1], eq)
-	o_gt = buf1(iw.outputs[0][0], gt)
+	o_lt = buf1(iw.x[2], lt)
+	o_eq = buf1(iw.x[1], eq)
+	o_gt = buf1(iw.x[0], gt)
 
-	o_w = and16s(x, m_d.outputs[0], w)
+	o_w = and16s(x, m_d.x, w)
 
-	return [ m_i, m_d, iw, o_sm, o_zx, o_nx, o_zy, o_ny, o_f, o_no, o_a, o_d, o_da, o_lt, o_eq, o_gt, o_w ]
+	return [ m_i, m_d, iw, o_sm, o_zx, o_nx, o_zy, o_ny, o_f, o_no, o_a, o_d, o_m, o_lt, o_eq, o_gt, o_w ]
 
 
 
@@ -95,24 +95,24 @@ def cpu16(c, iw, di, wr, rd, pc, a, do):
 
 	indec = indec16(iw)
 
-	bwr = and1(indec.outputs[10], c, wr)
+	bwr = and1(indec.m, c, wr)
 	brd = buf1(c, rd)
 
 	alu = alu16(
-		indec.outputs[2], indec.outputs[3], # zx, nx
-		indec.outputs[4], indec.outputs[5], # zy, ny
-		indec.outputs[6], indec.outputs[7], # f,  no
+		indec.zx, indec.nx,
+		indec.zy, indec.ny,
+		indec.f,  indec.no,
 		alu_x, alu_y)
 
-	mem_wr = mux16(indec.outputs[0], indec.outputs[14], alu.outputs[0], do)
+	mem_wr = mux16(indec.ci, indec.w, alu.z, do)
 
-	reg_a = reg16(indec.outputs[8], c, do, a)
-	reg_d = reg16(indec.outputs[9], c, do, alu_x)
+	reg_a = reg16(indec.a, c, do, a)
+	reg_d = reg16(indec.d, c, do, alu_x)
 
-	mem_rd = mux16(indec.outputs[1], a, di, alu_y)
+	mem_rd = mux16(indec.sm, a, di, alu_y)
 
-	jcmp = cmp16(indec.outputs[11], indec.outputs[12], indec.outputs[13], alu.outputs[0])
-	pctr = ctr16(jcmp.outputs[0], c, a, pc)
+	jcmp = cmp16(indec.lt, indec.eq, indec.gt, alu.z)
+	pctr = ctr16(jcmp.c, c, a, pc)
 
 	return [ indec, bwr, brd, alu, mem_wr, reg_a, reg_d, mem_rd, jcmp, pctr ]
 

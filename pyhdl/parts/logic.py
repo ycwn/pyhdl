@@ -27,7 +27,7 @@ def not1(a, x):
 def buf1(a, x):
 
 	neg0 = not1(a)
-	neg1 = not1(neg0.outputs[0], x)
+	neg1 = not1(neg0.x, x)
 
 	return [ neg0, neg1 ]
 
@@ -37,7 +37,7 @@ def buf1(a, x):
 def and1(a, b, x):
 
 	xab = nand1(a, b)
-	y   = not1(xab.outputs[0], x)
+	y   = not1(xab.x, x)
 
 	return [ xab, y ]
 
@@ -48,7 +48,7 @@ def or1(a, b, x):
 
 	xa = not1(a)
 	xb = not1(b)
-	y  = nand1(xa.outputs[0], xb.outputs[0], x)
+	y  = nand1(xa.x, xb.x, x)
 
 	return [ xa, xb, y ]
 
@@ -58,7 +58,7 @@ def or1(a, b, x):
 def nor1(a, b, x):
 
 	xab = or1(a, b)
-	y   = not1(xab.outputs[0], x)
+	y   = not1(xab.x, x)
 
 	return [ xab, y ]
 
@@ -67,10 +67,10 @@ def nor1(a, b, x):
 @module("XOR", [ "N", "N" ], [ "N" ])
 def xor1(a, b, x):
 
-	xab = nand1(a, b)
-	xa  = nand1(a, xab.outputs[0])
-	xb  = nand1(xab.outputs[0], b)
-	y   = nand1(xa.outputs[0], xb.outputs[0], x)
+	xab = nand1(a,     b)
+	xa  = nand1(a,     xab.x)
+	xb  = nand1(xab.x, b)
+	y   = nand1(xa.x,  xb.x, x)
 
 	return [ xab, xa, xb, y ]
 
@@ -90,8 +90,8 @@ def add1(a, b, s, c):
 def adc1(a, b, c, s, o):
 
 	s0 = add1(a, b)
-	s1 = add1(c, s0.outputs[0], s)
-	ov = or1(s0.outputs[1], s1.outputs[1], o)
+	s1 = add1(c, s0.s, s)
+	ov = or1(s0.c, s1.c, o)
 
 	return [ s0, s1, ov ]
 
@@ -101,9 +101,9 @@ def adc1(a, b, c, s, o):
 def mux1(s, d0, d1, x):
 
 	ns  = not1(s)
-	s0  = and1(d0, ns.outputs[0])
+	s0  = and1(d0, ns.x)
 	s1  = and1(d1, s)
-	out = or1(s0.outputs[0], s1.outputs[0], x)
+	out = or1(s0.x, s1.x, x)
 
 	return [ ns, s0, s1, out ]
 
@@ -113,8 +113,8 @@ def mux1(s, d0, d1, x):
 def dmux1(s, c, x0, x1):
 
 	ns  = not1(s)
-	cx0 = and1(c, ns.outputs[0], x0)
-	cx1 = and1(c, s, x1)
+	cx0 = and1(c, ns.x, x0)
+	cx1 = and1(c, s,    x1)
 
 	return [ ns, cx0, cx1 ]
 
@@ -126,10 +126,10 @@ def dff1(c, d, q, p):
 	b = not1(d)
 
 	sr0_q = nand1(c, d)
-	sr0_p = nand1(c, b.outputs[0])
+	sr0_p = nand1(c, b.x)
 
-	sr1_q = nand1(sr0_q.outputs[0], p, q)
-	sr1_p = nand1(q, sr0_p.outputs[0], p)
+	sr1_q = nand1(sr0_q.x, p,       q)
+	sr1_p = nand1(q,       sr0_p.x, p)
 
 	return [ b, sr0_p, sr0_q, sr1_p, sr1_q ]
 
@@ -139,20 +139,20 @@ def dff1(c, d, q, p):
 def sdff1(s, c, d, q, p):
 
 	cs = nand1(s, c)
-	ss = nand1(s, cs.outputs[0])
-	n0 = not1(ss.outputs[0])
-	d0 = nand1(d, n0.outputs[0])
+	ss = nand1(s, cs.x)
+	n0 = not1(ss.x)
+	d0 = nand1(d, n0.x)
 
 	q0 = net()
 	p0 = net()
 
-	sr0_q = nand1(d0.outputs[0], p0, q0)
-	sr0_p = nand1(ss.outputs[0], q0, p0)
+	sr0_q = nand1(d0.x, p0, q0)
+	sr0_p = nand1(ss.x, q0, p0)
 
 	ck = nand1(c, q0)
 
-	sr1_q = nand1(ck.outputs[0], p, q)
-	sr1_p = nand1(cs.outputs[0], q, p)
+	sr1_q = nand1(ck.x, p, q)
+	sr1_p = nand1(cs.x, q, p)
 
 	return [ cs, ss, n0, d0, sr0_p, sr0_q, ck, sr1_p, sr1_q ]
 

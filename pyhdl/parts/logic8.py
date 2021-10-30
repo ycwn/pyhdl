@@ -26,7 +26,7 @@ def adc8(a, b, ci, x, co):
 	for n in range(7):
 
 		adc   = adc1(a[n], b[n], carry, x[n])
-		carry = adc.outputs[1]
+		carry = adc.o
 
 		adcs.append(adc)
 
@@ -45,7 +45,7 @@ def inc8(a, x):
 def sub8(a, b, x):
 
 	neg = not8(b)
-	adc = adc8(a, neg.outputs[0], one, x)
+	adc = adc8(a, neg.x, one, x)
 
 	return [ neg, adc ]
 
@@ -54,15 +54,15 @@ def sub8(a, b, x):
 @module("EQZ8", [ "B8" ], [ "N" ])
 def eqz8(a, x):
 
-	or0_0 = or1(a[ 0], a[ 1])
-	or0_1 = or1(a[ 2], a[ 3])
-	or0_2 = or1(a[ 4], a[ 5])
-	or0_3 = or1(a[ 6], a[ 7])
+	or0_0 = or1(a[0], a[1])
+	or0_1 = or1(a[2], a[3])
+	or0_2 = or1(a[4], a[5])
+	or0_3 = or1(a[6], a[7])
 
-	or1_0 = or1(or0_0.outputs[0], or0_1.outputs[0])
-	or1_1 = or1(or0_2.outputs[0], or0_3.outputs[0])
+	or1_0 = or1(or0_0.x, or0_1.x)
+	or1_1 = or1(or0_2.x, or0_3.x)
 
-	or2_0 = nor1(or1_0.outputs[0], or1_1.outputs[0], x)
+	or2_0 = nor1(or1_0.x, or1_1.x, x)
 
 	return [
 		or0_0, or0_1, or0_2, or0_3,
@@ -88,8 +88,8 @@ def reg8(s, c, d, x):
 def ctr8(s, c, d, x):
 
 	inc = inc8(x)
-	mux = mux8(s, inc.outputs[0], d);
-	reg = reg8(one, c, mux.outputs[0], x)
+	mux = mux8(s, inc.x, d);
+	reg = reg8(one, c, mux.x, x)
 
 	return [ inc, mux, reg ]
 
