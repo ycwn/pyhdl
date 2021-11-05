@@ -143,9 +143,9 @@ def hack16():
 	io_wr = and1(wr, io.outputs[0])
 	io_rd = and1(rd, io.outputs[0])
 
-	ram  = ram64k16(mem_wr.outputs[0], mem_rd.outputs[0], a, do, di)
-	rom  = rom64k16(zero, clk.outputs[0], pc, i, i)
-	mmio = mmio16(io_wr.outputs[0], io_rd.outputs[0], a, do, di)
+	ram  = emuram64k16(mem_wr.outputs[0], mem_rd.outputs[0], a, do, di)
+	rom  = emurom64k16(zero, clk.outputs[0], pc, i, i)
+	mmio = emummio16(io_wr.outputs[0], io_rd.outputs[0], a, do, di)
 
 	return {
 		'subs':[

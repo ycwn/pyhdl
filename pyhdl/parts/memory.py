@@ -4,64 +4,65 @@ from pyhdl.core import *
 
 
 
-@module("RAM64K8", [ "N", "N", "B16", "B8" ], [ "B8" ])
-def ram64k8(s, c, a, di, do):
+@module("EMURAM64K8", [ "N", "N", "B16", "B8" ], [ "B8" ])
+def emuram64k8(s, c, a, di, do):
 
-	rambank = [ 0 for n in range(1 << 16) ]
+	memory = [ 0 for n in range(1 << 16) ]
 
 	def sim():
-		if c.value:   do.value = rambank[a.value]
-		elif s.value: rambank[a.value] = di.value
+		if c.value:   do.value = memory[a.value]
+		elif s.value: memory[a.value] = di.value
 
 	def read(addr):
-		return rambank[addr]
+		return memory[addr]
 
 	def write(addr, val):
-		rambank[addr] = val
+		memory[addr] = val
 
 	return { 'sim': sim, 'attrs': { 'read': read, 'write': write } }
 
 
 
-@module("RAM64K16", [ "N", "N", "B16", "B16" ], [ "B16" ])
-def ram64k16(wr, rd, a, di, do):
+@module("EMURAM64K16", [ "N", "N", "B16", "B16" ], [ "B16" ])
+def emuram64k16(wr, rd, a, di, do):
 
-	rambank = [ 0 for n in range(1 << 16) ]
+	memory = [ 0 for n in range(1 << 16) ]
 
 	def sim():
 		if rd.value:
-			do.value = rambank[a.value];
+			do.value = memory[a.value];
 
 		elif wr.value:
-			rambank[a.value] = di.value;
+			memory[a.value] = di.value;
 
 	def read(addr):
-		return rambank[addr]
+		return memory[addr]
 
 	def write(addr, val):
-		rambank[addr] = val
+		memory[addr] = val
 
 	return { 'sim': sim, 'attrs': { 'read': read, 'write': write } }
 
 
 
-@module("ROM64K16", [ "N", "N", "B16", "B16" ], [ "B16" ])
-def rom64k16(wr, rd, a, di, do):
+@module("EMUROM64K16", [ "N", "N", "B16", "B16" ], [ "B16" ])
+def emurom64k16(wr, rd, a, di, do):
 
-	rambank = [ 0 for n in range(1 << 16) ]
+	memory = [ 0 for n in range(1 << 16) ]
 
 	def sim():
-		if rd.value: do.value = rambank[a.value]
+		if rd.value:
+			do.value = memory[a.value]
 
 	def load(data):
-		rambank[0:len(data)] = data
+		memory[0:len(data)] = data
 
 	return { 'sim': sim, 'attrs': { 'load': load } }
 
 
 
-@module("MMIO16", [ "N", "N", "B16", "B16" ], [ "B16" ])
-def mmio16(wr, rd, a, di, do):
+@module("EMUMMIO16", [ "N", "N", "B16", "B16" ], [ "B16" ])
+def emummio16(wr, rd, a, di, do):
 
 	rd_f = None
 	wr_f = None
