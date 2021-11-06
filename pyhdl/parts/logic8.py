@@ -35,9 +35,9 @@ def adc8(a, b, ci, x, co):
 
 
 
-@module("INC8", [ "B8" ], [ "B8" ])
-def inc8(a, x):
-	return [ adc8(a, mkconst("ZERO", 8, 0), one, x) ]
+@module("INC8", [ "B8", "N" ], [ "B8", "N" ])
+def inc8(a, ci, x, co):
+	return [ adc8(a, mkconst("ZERO", 8, 0), ci, x, co) ]
 
 
 
@@ -78,16 +78,22 @@ def ltz8(a, x):
 
 
 
+@module("LAT8", [ "N", "B8" ], [ "B8" ])
+def lat8(s, d, x):
+	return [ dff1(s, dd, xx) for dd, xx in zip(d.nets, x.nets) ]
+
+
+
 @module("REG8", [ "N", "N", "B8" ], [ "B8" ])
 def reg8(s, c, d, x):
 	return [ sdff1(s, c, dd, xx) for dd, xx in zip(d.nets, x.nets) ]
 
 
 
-@module("CTR8", [ "N", "N", "B8" ], [ "B8" ])
-def ctr8(s, c, d, x):
+@module("CTR8", [ "N", "N", "B8", "N" ], [ "B8", "N" ])
+def ctr8(s, c, d, ci, x, co):
 
-	inc = inc8(x)
+	inc = inc8(x, ci, bus("", 8), co)
 	mux = mux8(s, inc.x, d);
 	reg = reg8(one, c, mux.x, x)
 

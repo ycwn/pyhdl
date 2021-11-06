@@ -35,9 +35,9 @@ def adc4(a, b, ci, x, co):
 
 
 
-@module("INC4", [ "B4" ], [ "B4" ])
-def inc4(a, x):
-	return [ adc4(a, mkconst("ZERO", 4, 0), one, x) ]
+@module("INC4", [ "B4", "N" ], [ "B4", "N" ])
+def inc4(a, ci, x, co):
+	return [ adc4(a, mkconst("ZERO", 4, 0), ci, x, co) ]
 
 
 
@@ -78,10 +78,10 @@ def reg4(s, c, d, x):
 
 
 
-@module("CTR4", [ "N", "N", "B4" ], [ "B4" ])
-def ctr4(s, c, d, x):
+@module("CTR4", [ "N", "N", "B4", "N" ], [ "B4", "N" ])
+def ctr4(s, c, d, ci, x, co):
 
-	inc = inc4(x)
+	inc = inc4(x, ci, bus("", 4), co)
 	mux = mux4(s, inc.x, d);
 	reg = reg4(one, c, mux.x, x)
 

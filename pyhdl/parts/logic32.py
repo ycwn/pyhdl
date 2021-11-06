@@ -35,9 +35,9 @@ def adc32(a, b, ci, x, co):
 
 
 
-@module("INC32", [ "B32" ], [ "B32" ])
-def inc32(a, x):
-	return [ adc32(a, mkconst("ZERO", 32, 0), one, x) ]
+@module("INC32", [ "B32", "N" ], [ "B32", "N" ])
+def inc32(a, ci, x, co):
+	return [ adc32(a, mkconst("ZERO", 32, 0), ci, x, co) ]
 
 
 
@@ -113,10 +113,10 @@ def reg32(s, c, d, x):
 
 
 
-@module("CTR32", [ "N", "N", "B32" ], [ "B32" ])
-def ctr32(s, c, d, x):
+@module("CTR32", [ "N", "N", "B32", "N" ], [ "B32", "N" ])
+def ctr32(s, c, d, ci, x, co):
 
-	inc = inc32(x)
+	inc = inc32(x, ci, bus("", 32), co)
 	mux = mux32(s, inc.x, d);
 	reg = reg32(one, c, mux.x, x)
 

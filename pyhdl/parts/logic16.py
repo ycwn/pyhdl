@@ -53,9 +53,9 @@ def adc16(a, b, ci, x, co):
 
 
 
-@module("INC16", [ "B16" ], [ "B16" ])
-def inc16(a, x):
-	return [ adc16(a, mkconst("ZERO", 16, 0), one, x) ]
+@module("INC16", [ "B16", "N" ], [ "B16", "N" ])
+def inc16(a, ci, x, co):
+	return [ adc16(a, mkconst("ZERO", 16, 0), ci, x, co) ]
 
 
 
@@ -106,16 +106,22 @@ def ltz16(a, x):
 
 
 
+@module("LATCH16", [ "N", "B16" ], [ "B16" ])
+def latch16(s, d, x):
+	return [ dff1(s, dd, xx) for dd, xx in zip(d.nets, x.nets) ]
+
+
+
 @module("REG16", [ "N", "N", "B16" ], [ "B16" ])
 def reg16(s, c, d, x):
 	return [ sdff1(s, c, dd, xx) for dd, xx in zip(d.nets, x.nets) ]
 
 
 
-@module("CTR16", [ "N", "N", "B16" ], [ "B16" ])
-def ctr16(s, c, d, x):
+@module("CTR16", [ "N", "N", "B16", "N" ], [ "B16", "N" ])
+def ctr16(s, c, d, ci, x, co):
 
-	inc = inc16(x)
+	inc = inc16(x, ci, bus("", 16), co)
 	mux = mux16(s, inc.x, d);
 	reg = reg16(one, c, mux.x, x)
 

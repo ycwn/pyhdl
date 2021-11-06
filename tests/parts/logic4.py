@@ -46,9 +46,9 @@ test_component(logic.adc4(core.bus("A", 4), core.bus("B", 4), core.net()),
 
 
 
-test_component(logic.inc4(core.bus("A", 4)),
+test_component(logic.inc4(core.bus("A", 4), core.net("C")),
 	[
-		[ 0 ], [ 1 ], [ 14 ], [ 15 ],
+		[ 0, True ], [ 1, True ], [ 14, True ], [ 15, True ],
 	],
 	[
 		[ 1 ], [ 2 ], [ 15 ], [ 0 ]
@@ -135,16 +135,16 @@ test_component(logic.reg4(core.net(), core.net(), core.bus("A", 4)),
 
 
 
-test_component(logic.ctr4(core.net(), core.net(), core.bus("A", 4)),
+test_component(logic.ctr4(core.net(), core.net(), core.bus("A", 4), core.net()),
 	[
-		[ True,  False, 13  ],
-		[ True,  True,  10  ],
-		[ False, False, 0   ],
-		[ False, True,  1   ],
-		[ False, False, 2   ],
-		[ False, True,  3   ],
-		[ True,  False, 10  ],
-		[ True,  True,  0   ]
+		[ True,  False, 13, True  ],
+		[ True,  True,  10, True  ],
+		[ False, False, 0,  True  ],
+		[ False, True,  1,  True  ],
+		[ False, False, 2,  True  ],
+		[ False, True,  3,  True  ],
+		[ True,  False, 10, True  ],
+		[ True,  True,  0,  True  ]
 	],
 	[
 		[  0 ],
