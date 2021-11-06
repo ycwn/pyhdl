@@ -87,6 +87,28 @@ def sub4(a, b, x):
 
 
 
+@module("SHL4", [ "B4", "N" ], [ "B4", "N" ])
+def shl4(a, ci, x, co):
+	return [
+		buf1(
+			a[n-1] if n > 0       else ci,
+			x[n]   if n < x.width else co
+		) for n in range(0, 5)
+	]
+
+
+
+@module("SHR4", [ "N", "N" ], [ "N", "N" ])
+def shr4(a, ci, x, co):
+	return [
+		buf1(
+			a[n]   if n < a.width else ci,
+			x[n-1] if n > 0       else co
+		) for n in range(0, 5)
+	]
+
+
+
 @module("EQZ4", [ "B4" ], [ "N" ])
 def eqz4(a, x):
 

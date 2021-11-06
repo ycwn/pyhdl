@@ -87,6 +87,28 @@ def sub32(a, b, x):
 
 
 
+@module("SHL32", [ "B32", "N" ], [ "B32", "N" ])
+def shl32(a, ci, x, co):
+	return [
+		buf1(
+			a[n-1] if n > 0       else ci,
+			x[n]   if n < x.width else co
+		) for n in range(0, 33)
+	]
+
+
+
+@module("SHR32", [ "N", "N" ], [ "N", "N" ])
+def shr32(a, ci, x, co):
+	return [
+		buf1(
+			a[n]   if n < a.width else ci,
+			x[n-1] if n > 0       else co
+		) for n in range(0, 33)
+	]
+
+
+
 @module("EQZ32", [ "B32" ], [ "N" ])
 def eqz32(a, x):
 

@@ -97,6 +97,25 @@ def adc1(a, b, c, s, o):
 
 
 
+@module("SHL", [ "N", "N" ], [ "N", "N" ])
+def shl1(a, ci, x, co):
+	return [
+		buf1(a,  co),
+		buf1(ci, x)
+	]
+
+
+
+
+@module("SHR", [ "N", "N" ], [ "N", "N" ])
+def shr1(a, ci, x, co):
+	return [
+		buf1(a,  co),
+		buf1(ci, x)
+	]
+
+
+
 @module("MUX", [ "N", "N", "N" ], [ "N" ])
 def mux1(s, d0, d1, x):
 

@@ -87,6 +87,28 @@ def sub8(a, b, x):
 
 
 
+@module("SHL8", [ "B8", "N" ], [ "B8", "N" ])
+def shl8(a, ci, x, co):
+	return [
+		buf1(
+			a[n-1] if n > 0       else ci,
+			x[n]   if n < x.width else co
+		) for n in range(0, 9)
+	]
+
+
+
+@module("SHR8", [ "N", "N" ], [ "N", "N" ])
+def shr8(a, ci, x, co):
+	return [
+		buf1(
+			a[n]   if n < a.width else ci,
+			x[n-1] if n > 0       else co
+		) for n in range(0, 9)
+	]
+
+
+
 @module("EQZ8", [ "B8" ], [ "N" ])
 def eqz8(a, x):
 

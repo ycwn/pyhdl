@@ -87,6 +87,28 @@ def sub16(a, b, x):
 
 
 
+@module("SHL16", [ "B16", "N" ], [ "B16", "N" ])
+def shl16(a, ci, x, co):
+	return [
+		buf1(
+			a[n-1] if n > 0       else ci,
+			x[n]   if n < x.width else co
+		) for n in range(0, 17)
+	]
+
+
+
+@module("SHR16", [ "N", "N" ], [ "N", "N" ])
+def shr16(a, ci, x, co):
+	return [
+		buf1(
+			a[n]   if n < a.width else ci,
+			x[n-1] if n > 0       else co
+		) for n in range(0, 17)
+	]
+
+
+
 @module("EQZ16", [ "B16" ], [ "N" ])
 def eqz16(a, x):
 
