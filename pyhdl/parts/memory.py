@@ -1,6 +1,7 @@
 
 
-from pyhdl.core import *
+from pyhdl.core        import *
+from pyhdl.parts.logic import *
 
 
 
@@ -81,4 +82,62 @@ def emummio16(wr, rd, a, di, do):
 
 	return { 'sim': sim, 'attrs': { 'read': set_rd, 'write': set_wr } }
 
+
+
+@module("BITLINE", [], [ "N" ])
+def bitline(bit):
+	return [ buf1(zero, bit) ]
+
+
+
+@module("ROMCELL", [ "N", "N" ], [ "N" ])
+def romcell(row, bi, bo):
+	return [ or1(row, bi, bo) ]
+
+
+
+def romgrid(data, nrows, nbits, rows, ibits, obits):
+
+	def romgrid_builder(rows, ibits, obits):
+
+		cells = []
+
+		for bit in range(nbits):
+
+			column  = [ row for row in range(nrows) if data[row][bit] ]
+			bitline = ibits[bit]
+
+			if len(column) > 0:
+
+				for row in column[:-1]:
+					cells.append(romcell(rows[row], bitline))
+					bitline = cells[-1].bo
+
+				cells.append(romcell(rows[column[-1]], bitline, obits[bit]))
+
+			else:
+				cells.append(buf1(ibits[bit], obits[bit]))
+
+		return cells
+
+
+	return module("ROMGRID%dX%d" % (nrows, nbits),
+		[ "B%d" % nrows, "B%d" % nbits ], [ "B%d" % nbits ])(romgrid_builder)(rows, ibits, obits)
+
+
+
+def rom(data, rows, bits):
+
+	nrows = len(data)
+	nbits = len(data[0])
+
+	def rom_builder(rows, bits):
+		ibits = bus("", bits.width)
+		lines = [ bitline(bit) for bit in ibits.nets ]
+		grid  = romgrid(data, nrows, nbits, rows, ibits, bits)
+
+		return lines + [ grid ]
+
+
+	return module("ROM%dX%d" % (nrows, nbits), [ "B%d" % nrows ], [ "B%d" % nbits ])(rom_builder)(rows, bits)
 
