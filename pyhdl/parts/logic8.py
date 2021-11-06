@@ -77,13 +77,15 @@ def inc8(a, ci, x, co):
 
 
 
-@module("SUB8", [ "B8", "B8" ], [ "B8" ])
-def sub8(a, b, x):
+@module("SUB8", [ "B8", "B8", "N" ], [ "B8", "N" ])
+def sub8(a, b, bi, x, bo):
 
 	neg = not8(b)
-	adc = adc8(a, neg.x, one, x)
+	cbi = not1(bi)
+	adc = adc8(a, neg.x, cbi.x, x)
+	bco = not1(adc.co, bo)
 
-	return [ neg, adc ]
+	return [ neg, cbi, adc, bco ]
 
 
 

@@ -77,13 +77,15 @@ def inc32(a, ci, x, co):
 
 
 
-@module("SUB32", [ "B32", "B32" ], [ "B32" ])
-def sub32(a, b, x):
+@module("SUB32", [ "B32", "B32", "N" ], [ "B32", "N" ])
+def sub32(a, b, bi, x, bo):
 
 	neg = not32(b)
-	adc = adc32(a, neg.x, one, x)
+	cbi = not1(bi)
+	adc = adc32(a, neg.x, cbi.x, x)
+	bco = not1(adc.co, bo)
 
-	return [ neg, adc ]
+	return [ neg, cbi, adc, bco ]
 
 
 

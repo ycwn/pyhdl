@@ -57,28 +57,28 @@ test_component(logic.inc8(core.bus("A", 8), core.net("C")),
 
 
 
-test_component(logic.sub8(core.bus("A", 8), core.bus("B", 8)),
+test_component(logic.sub8(core.bus("A", 8), core.bus("B", 8), core.net("CI")),
 	[
-		[ 0,   0   ],
-		[ 1,   0   ],
-		[ 1,   1   ],
-		[ 1,   2   ],
-		[ 1,   3   ],
-		[ 2,   2   ],
-		[ 4,   2   ],
-		[ 128, 128 ],
-		[ 128, 130 ]
+		[ 0,   0,   False ],
+		[ 1,   0,   False ],
+		[ 1,   1,   False ],
+		[ 1,   2,   False ],
+		[ 1,   3,   False ],
+		[ 2,   2,   False ],
+		[ 4,   2,   False ],
+		[ 128, 128, False ],
+		[ 128, 130, False ]
 	],
 	[
-		[ 0   ],
-		[ 1   ],
-		[ 0   ],
-		[ 255 ],
-		[ 254 ],
-		[ 0   ],
-		[ 2   ],
-		[ 0   ],
-		[ 254 ]
+		[ 0,   False ],
+		[ 1,   False ],
+		[ 0,   False ],
+		[ 255, True  ],
+		[ 254, True  ],
+		[ 0,   False ],
+		[ 2,   False ],
+		[ 0,   False ],
+		[ 254, True  ]
 	]
 )
 

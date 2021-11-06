@@ -77,13 +77,15 @@ def inc4(a, ci, x, co):
 
 
 
-@module("SUB4", [ "B4", "B4" ], [ "B4" ])
-def sub4(a, b, x):
+@module("SUB4", [ "B4", "B4", "N" ], [ "B4", "N" ])
+def sub4(a, b, bi, x, bo):
 
 	neg = not4(b)
-	adc = adc4(a, neg.x, one, x)
+	cbi = not1(bi)
+	adc = adc4(a, neg.x, cbi.x, x)
+	bco = not1(adc.co, bo)
 
-	return [ neg, adc ]
+	return [ neg, cbi, adc, bco ]
 
 
 

@@ -57,28 +57,28 @@ test_component(logic.inc16(core.bus("A", 16), core.net()),
 
 
 
-test_component(logic.sub16(core.bus("A", 16), core.bus("B", 16)),
+test_component(logic.sub16(core.bus("A", 16), core.bus("B", 16), core.net("CI")),
 	[
-		[ 0,     0      ],
-		[ 1,     0      ],
-		[ 1,     1      ],
-		[ 1,     2      ],
-		[ 1,     3      ],
-		[ 2,     2      ],
-		[ 4,     2      ],
-		[ 32768, 32768  ],
-		[ 32768, 32770  ]
+		[ 0,     0,     False ],
+		[ 1,     0,     False ],
+		[ 1,     1,     False ],
+		[ 1,     2,     False ],
+		[ 1,     3,     False ],
+		[ 2,     2,     False ],
+		[ 4,     2,     False ],
+		[ 32768, 32768, False ],
+		[ 32768, 32770, False ]
 	],
 	[
-		[ 0     ],
-		[ 1     ],
-		[ 0     ],
-		[ 65535 ],
-		[ 65534 ],
-		[ 0     ],
-		[ 2     ],
-		[ 0     ],
-		[ 65534 ]
+		[ 0,     False ],
+		[ 1,     False ],
+		[ 0,     False ],
+		[ 65535, True  ],
+		[ 65534, True  ],
+		[ 0,     False ],
+		[ 2,     False ],
+		[ 0,     False ],
+		[ 65534, True  ]
 	]
 )
 

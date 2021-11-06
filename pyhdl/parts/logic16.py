@@ -77,13 +77,15 @@ def inc16(a, ci, x, co):
 
 
 
-@module("SUB16", [ "B16", "B16" ], [ "B16" ])
-def sub16(a, b, x):
+@module("SUB16", [ "B16", "B16", "N" ], [ "B16", "N" ])
+def sub16(a, b, bi, x, bo):
 
 	neg = not16(b)
-	adc = adc16(a, neg.x, one, x)
+	cbi = not1(bi)
+	adc = adc16(a, neg.x, cbi.x, x)
+	bco = not1(adc.co, bo)
 
-	return [ neg, adc ]
+	return [ neg, cbi, adc, bco ]
 
 
 

@@ -57,28 +57,28 @@ test_component(logic.inc4(core.bus("A", 4), core.net("C")),
 
 
 
-test_component(logic.sub4(core.bus("A", 4), core.bus("B", 4)),
+test_component(logic.sub4(core.bus("A", 4), core.bus("B", 4), core.net("CI")),
 	[
-		[ 0,  0 ],
-		[ 1,  0 ],
-		[ 1,  1 ],
-		[ 1,  2 ],
-		[ 1,  3 ],
-		[ 2,  2 ],
-		[ 4,  2 ],
-		[ 8,  8 ],
-		[ 8, 10 ]
+		[ 0,  0, False ],
+		[ 1,  0, False ],
+		[ 1,  1, False ],
+		[ 1,  2, False ],
+		[ 1,  3, False ],
+		[ 2,  2, False ],
+		[ 4,  2, False ],
+		[ 8,  8, False ],
+		[ 8, 10, False ]
 	],
 	[
-		[ 0  ],
-		[ 1  ],
-		[ 0  ],
-		[ 15 ],
-		[ 14 ],
-		[ 0  ],
-		[ 2  ],
-		[ 0  ],
-		[ 14 ]
+		[ 0,  False ],
+		[ 1,  False ],
+		[ 0,  False ],
+		[ 15, True  ],
+		[ 14, True  ],
+		[ 0,  False ],
+		[ 2,  False ],
+		[ 0,  False ],
+		[ 14, True  ]
 	]
 )
 
