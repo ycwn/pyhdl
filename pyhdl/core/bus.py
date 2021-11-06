@@ -31,6 +31,12 @@ class bus:
 
 
 	@property
+	def width(self):
+		return len(self.nets)
+
+
+
+	@property
 	def value(self):
 		val = 0
 		for k, net in enumerate(self.nets):
