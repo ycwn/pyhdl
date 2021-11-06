@@ -11,9 +11,45 @@ def not8(a, x):
 
 
 
+@module("AND8", [ "B8", "B8" ], [ "B8" ])
+def and8(a, b, x):
+	return [ and1(aa, bb, xx) for aa, bb, xx in zip(a.nets, b.nets, x.nets) ]
+
+
+
+@module("AND8S", [ "B8", "N" ], [ "B8" ])
+def and8s(a, b, x):
+	return [ and1(aa, b, xx) for aa, xx in zip(a.nets, x.nets) ]
+
+
+
+@module("OR8", [ "B8", "B8" ], [ "B8" ])
+def or8(a, b, x):
+	return [ or1(aa, bb, xx) for aa, bb, xx in zip(a.nets, b.nets, x.nets) ]
+
+
+
+@module("XOR8", [ "B8", "B8" ], [ "B8" ])
+def xor8(a, b, x):
+	return [ xor1(aa, bb, xx) for aa, bb, xx in zip(a.nets, b.nets, x.nets) ]
+
+
+
+@module("XOR8S", [ "B8", "N" ], [ "B8" ])
+def xor8s(a, b, x):
+	return [ xor1(aa, b, xx) for aa, xx in zip(a.nets, x.nets) ]
+
+
+
 @module("MUX8", [ "N", "B8", "B8" ], [ "B8" ])
 def mux8(s, d0, d1, x):
 	return [ mux1(s, dd0, dd1, xx) for dd0, dd1, xx in zip(d0.nets, d1.nets, x.nets) ]
+
+
+
+@module("DMUX8", [ "N", "B8" ], [ "B8", "B8" ])
+def dmux8(s, x, d0, d1):
+	return [ dmux1(s, xx, dd0, dd1) for xx, dd0, dd1 in zip(x.nets, d0.nets, d1.nets) ]
 
 
 
@@ -78,8 +114,8 @@ def ltz8(a, x):
 
 
 
-@module("LAT8", [ "N", "B8" ], [ "B8" ])
-def lat8(s, d, x):
+@module("LATCH8", [ "N", "B8" ], [ "B8" ])
+def latch8(s, d, x):
 	return [ dff1(s, dd, xx) for dd, xx in zip(d.nets, x.nets) ]
 
 

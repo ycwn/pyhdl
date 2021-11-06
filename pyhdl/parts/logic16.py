@@ -23,6 +23,18 @@ def and16s(a, b, x):
 
 
 
+@module("OR16", [ "B16", "B16" ], [ "B16" ])
+def or16(a, b, x):
+	return [ or1(aa, bb, xx) for aa, bb, xx in zip(a.nets, b.nets, x.nets) ]
+
+
+
+@module("XOR16", [ "B16", "B16" ], [ "B16" ])
+def xor16(a, b, x):
+	return [ xor1(aa, bb, xx) for aa, bb, xx in zip(a.nets, b.nets, x.nets) ]
+
+
+
 @module("XOR16S", [ "B16", "N" ], [ "B16" ])
 def xor16s(a, b, x):
 	return [ xor1(aa, b, xx) for aa, xx in zip(a.nets, x.nets) ]
@@ -32,6 +44,12 @@ def xor16s(a, b, x):
 @module("MUX16", [ "N", "B16", "B16" ], [ "B16" ])
 def mux16(s, d0, d1, x):
 	return [ mux1(s, dd0, dd1, xx) for dd0, dd1, xx in zip(d0.nets, d1.nets, x.nets) ]
+
+
+
+@module("DMUX16", [ "N", "B16" ], [ "B16", "B16" ])
+def dmux16(s, x, d0, d1):
+	return [ dmux1(s, xx, dd0, dd1) for xx, dd0, dd1 in zip(x.nets, d0.nets, d1.nets) ]
 
 
 

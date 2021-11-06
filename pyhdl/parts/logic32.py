@@ -11,9 +11,45 @@ def not32(a, x):
 
 
 
+@module("AND32", [ "B32", "B32" ], [ "B32" ])
+def and32(a, b, x):
+	return [ and1(aa, bb, xx) for aa, bb, xx in zip(a.nets, b.nets, x.nets) ]
+
+
+
+@module("AND32S", [ "B32", "N" ], [ "B32" ])
+def and32s(a, b, x):
+	return [ and1(aa, b, xx) for aa, xx in zip(a.nets, x.nets) ]
+
+
+
+@module("OR32", [ "B32", "B32" ], [ "B32" ])
+def or32(a, b, x):
+	return [ or1(aa, bb, xx) for aa, bb, xx in zip(a.nets, b.nets, x.nets) ]
+
+
+
+@module("XOR32", [ "B32", "B32" ], [ "B32" ])
+def xor32(a, b, x):
+	return [ xor1(aa, bb, xx) for aa, bb, xx in zip(a.nets, b.nets, x.nets) ]
+
+
+
+@module("XOR32S", [ "B32", "N" ], [ "B32" ])
+def xor32s(a, b, x):
+	return [ xor1(aa, b, xx) for aa, xx in zip(a.nets, x.nets) ]
+
+
+
 @module("MUX32", [ "N", "B32", "B32" ], [ "B32" ])
 def mux32(s, d0, d1, x):
 	return [ mux1(s, dd0, dd1, xx) for dd0, dd1, xx in zip(d0.nets, d1.nets, x.nets) ]
+
+
+
+@module("DMUX32", [ "N", "B32" ], [ "B32", "B32" ])
+def dmux32(s, x, d0, d1):
+	return [ dmux1(s, xx, dd0, dd1) for xx, dd0, dd1 in zip(x.nets, d0.nets, d1.nets) ]
 
 
 
@@ -104,6 +140,12 @@ def eqz32(a, x):
 @module("LTZ32", [ "B32" ], [ "N" ])
 def ltz32(a, x):
 	return [ buf1(a[31], x) ]
+
+
+
+@module("LATCH32", [ "N", "B32" ], [ "B32" ])
+def latch32(s, d, x):
+	return [ dff1(s, dd, xx) for dd, xx in zip(d.nets, x.nets) ]
 
 
 

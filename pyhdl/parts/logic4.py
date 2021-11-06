@@ -11,9 +11,45 @@ def not4(a, x):
 
 
 
+@module("AND4", [ "B4", "B4" ], [ "B4" ])
+def and4(a, b, x):
+	return [ and1(aa, bb, xx) for aa, bb, xx in zip(a.nets, b.nets, x.nets) ]
+
+
+
+@module("AND4S", [ "B4", "N" ], [ "B4" ])
+def and4s(a, b, x):
+	return [ and1(aa, b, xx) for aa, xx in zip(a.nets, x.nets) ]
+
+
+
+@module("OR4", [ "B4", "B4" ], [ "B4" ])
+def or4(a, b, x):
+	return [ or1(aa, bb, xx) for aa, bb, xx in zip(a.nets, b.nets, x.nets) ]
+
+
+
+@module("XOR4", [ "B4", "B4" ], [ "B4" ])
+def xor4(a, b, x):
+	return [ xor1(aa, bb, xx) for aa, bb, xx in zip(a.nets, b.nets, x.nets) ]
+
+
+
+@module("XOR4S", [ "B4", "N" ], [ "B4" ])
+def xor4s(a, b, x):
+	return [ xor1(aa, b, xx) for aa, xx in zip(a.nets, x.nets) ]
+
+
+
 @module("MUX4", [ "N", "B4", "B4" ], [ "B4" ])
 def mux4(s, d0, d1, x):
 	return [ mux1(s, dd0, dd1, xx) for dd0, dd1, xx in zip(d0.nets, d1.nets, x.nets) ]
+
+
+
+@module("DMUX4", [ "N", "B4" ], [ "B4", "B4" ])
+def dmux4(s, x, d0, d1):
+	return [ dmux1(s, xx, dd0, dd1) for xx, dd0, dd1 in zip(x.nets, d0.nets, d1.nets) ]
 
 
 
@@ -69,6 +105,12 @@ def eqz4(a, x):
 @module("LTZ4", [ "B4" ], [ "N" ])
 def ltz4(a, x):
 	return [ buf1(a[3], x) ]
+
+
+
+@module("LATCH4", [ "N", "B4" ], [ "B4" ])
+def latch4(s, d, x):
+	return [ dff1(s, dd, xx) for dd, xx in zip(d.nets, x.nets) ]
 
 
 
