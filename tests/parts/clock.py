@@ -7,7 +7,7 @@ from ..common import *
 
 
 
-test_component(clk.clock(),
+test_component(clk.clock.create(),
 	[
 		[], [], [], [], [], [], [], []
 	],

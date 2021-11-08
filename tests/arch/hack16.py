@@ -7,7 +7,7 @@ from ..common import *
 
 
 
-test_component(h16.unalu16(core.net(), core.net(), core.bus("A", 16)),
+test_component(h16.unalu16.create(),
 	[
 		[ False,  False, 0     ],
 		[ False,  True,  0     ],
@@ -36,7 +36,7 @@ test_component(h16.unalu16(core.net(), core.net(), core.bus("A", 16)),
 
 
 
-test_component(h16.alu16(core.net(), core.net(), core.net(), core.net(), core.net(), core.net(), core.bus("X", 16), core.bus("Y", 16)),
+test_component(h16.alu16.create(),
 	[
 		[ True,  False, True,  False, False, False, 27, 65532 ],
 		[ True,  True,  True,  True,  True,  True,  27, 65532 ],
@@ -65,7 +65,7 @@ test_component(h16.alu16(core.net(), core.net(), core.net(), core.net(), core.ne
 
 
 
-test_component(h16.cmp16(core.net(), core.net(), core.net(), core.bus("A", 16)),
+test_component(h16.cmp16.create(),
 	[
 		[ False, False, False, 0     ],
 		[ False, False, False, 1     ],
@@ -94,7 +94,7 @@ test_component(h16.cmp16(core.net(), core.net(), core.net(), core.bus("A", 16)),
 
 
 
-test_component(h16.indec16(core.bus("A", 16)),
+test_component(h16.indec16.create(),
 	[
 		[ 61408 ],
 		[ 57368 ],

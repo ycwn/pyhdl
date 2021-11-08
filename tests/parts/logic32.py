@@ -7,7 +7,7 @@ from ..common import *
 
 
 
-test_component(logic.not32(core.bus("A", 32)),
+test_component(logic.not32.create(),
 	[
 		[ 0 ], [ 1 ], [ 4294967294 ], [ 4294967295 ],
 	],
@@ -18,7 +18,7 @@ test_component(logic.not32(core.bus("A", 32)),
 
 
 
-test_component(logic.mux32(core.net(), core.bus("A", 32), core.bus("B", 32)),
+test_component(logic.mux32.create(),
 	[
 		[ False, 0xdeadbeef, 0xfeedface ], [ True, 0xdeadbeef, 0xfeedface ]
 	],
@@ -29,7 +29,7 @@ test_component(logic.mux32(core.net(), core.bus("A", 32), core.bus("B", 32)),
 
 
 
-test_component(logic.adc32(core.bus("A", 32), core.bus("B", 32), core.net()),
+test_component(logic.adc32.create(),
 	[
 		[ 10,         15, False ],
 		[ 4294967295, 0,  False ],
@@ -46,7 +46,7 @@ test_component(logic.adc32(core.bus("A", 32), core.bus("B", 32), core.net()),
 
 
 
-test_component(logic.inc32(core.bus("A", 32), core.net()),
+test_component(logic.inc32.create(),
 	[
 		[ 0, True ], [ 1, True ], [ 4294967294, True ], [ 4294967295, True ],
 	],
@@ -57,7 +57,7 @@ test_component(logic.inc32(core.bus("A", 32), core.net()),
 
 
 
-test_component(logic.sub32(core.bus("A", 32), core.bus("B", 32), core.net("CI")),
+test_component(logic.sub32.create(),
 	[
 		[ 0,          0,          False ],
 		[ 1,          0,          False ],
@@ -84,7 +84,7 @@ test_component(logic.sub32(core.bus("A", 32), core.bus("B", 32), core.net("CI"))
 
 
 
-test_component(logic.eqz32(core.bus("A", 32)),
+test_component(logic.eqz32.create(),
 	[
 		[ 0       ],
 		[ 1 <<  0 ], [ 1 <<  1 ], [ 1 <<  2 ], [ 1 <<  3 ],
@@ -111,7 +111,7 @@ test_component(logic.eqz32(core.bus("A", 32)),
 
 
 
-test_component(logic.ltz32(core.bus("A", 32)),
+test_component(logic.ltz32.create(),
 	[
 		[ 0       ],
 		[ 1 <<  0 ], [ 1 <<  1 ], [ 1 <<  2 ], [ 1 <<  3 ],
@@ -138,7 +138,7 @@ test_component(logic.ltz32(core.bus("A", 32)),
 
 
 
-test_component(logic.reg32(core.net(), core.net(), core.bus("A", 32)),
+test_component(logic.reg32.create(),
 	[
 		[ True,  False, 0   ],
 		[ True,  False, 42  ],
@@ -163,7 +163,7 @@ test_component(logic.reg32(core.net(), core.net(), core.bus("A", 32)),
 
 
 
-test_component(logic.ctr32(core.net(), core.net(), core.bus("A", 32), core.net()),
+test_component(logic.ctr32.create(),
 	[
 		[ True,  False, 42,  True ],
 		[ True,  True,  69,  True ],

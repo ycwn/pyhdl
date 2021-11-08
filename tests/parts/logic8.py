@@ -7,7 +7,7 @@ from ..common import *
 
 
 
-test_component(logic.not8(core.bus("A", 8)),
+test_component(logic.not8.create(),
 	[
 		[ 0 ], [ 1 ], [ 254 ], [ 255 ],
 	],
@@ -18,7 +18,7 @@ test_component(logic.not8(core.bus("A", 8)),
 
 
 
-test_component(logic.mux8(core.net(), core.bus("A", 8), core.bus("B", 8)),
+test_component(logic.mux8.create(),
 	[
 		[ False, 42, 69 ], [ True, 42, 69 ]
 	],
@@ -29,7 +29,7 @@ test_component(logic.mux8(core.net(), core.bus("A", 8), core.bus("B", 8)),
 
 
 
-test_component(logic.adc8(core.bus("A", 8), core.bus("B", 8), core.net()),
+test_component(logic.adc8.create(),
 	[
 		[ 10,  15, False ],
 		[ 255, 0,  False ],
@@ -46,7 +46,7 @@ test_component(logic.adc8(core.bus("A", 8), core.bus("B", 8), core.net()),
 
 
 
-test_component(logic.inc8(core.bus("A", 8), core.net("C")),
+test_component(logic.inc8.create(),
 	[
 		[ 0, True ], [ 1, True ], [ 254, True ], [ 255, True ],
 	],
@@ -57,7 +57,7 @@ test_component(logic.inc8(core.bus("A", 8), core.net("C")),
 
 
 
-test_component(logic.sub8(core.bus("A", 8), core.bus("B", 8), core.net("CI")),
+test_component(logic.sub8.create(),
 	[
 		[ 0,   0,   False ],
 		[ 1,   0,   False ],
@@ -84,7 +84,7 @@ test_component(logic.sub8(core.bus("A", 8), core.bus("B", 8), core.net("CI")),
 
 
 
-test_component(logic.eqz8(core.bus("A", 8)),
+test_component(logic.eqz8.create(),
 	[
 		[ 0      ],
 		[ 1 << 0 ], [ 1 << 1 ], [ 1 << 2 ], [ 1 << 3 ],
@@ -99,7 +99,7 @@ test_component(logic.eqz8(core.bus("A", 8)),
 
 
 
-test_component(logic.ltz8(core.bus("A", 8)),
+test_component(logic.ltz8.create(),
 	[
 		[ 0      ],
 		[ 1 << 0 ], [ 1 << 1 ], [ 1 << 2 ], [ 1 << 3 ],
@@ -114,7 +114,7 @@ test_component(logic.ltz8(core.bus("A", 8)),
 
 
 
-test_component(logic.reg8(core.net(), core.net(), core.bus("A", 8)),
+test_component(logic.reg8.create(),
 	[
 		[ True,  False, 0   ],
 		[ True,  False, 42  ],
@@ -139,7 +139,7 @@ test_component(logic.reg8(core.net(), core.net(), core.bus("A", 8)),
 
 
 
-test_component(logic.ctr8(core.net(), core.net(), core.bus("A", 8), core.net()),
+test_component(logic.ctr8.create(),
 	[
 		[ True,  False, 42, True ],
 		[ True,  True,  69, True ],

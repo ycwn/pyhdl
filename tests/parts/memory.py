@@ -7,7 +7,7 @@ from ..common import *
 
 
 
-test_component(memory.emuram64k8(core.net(), core.net(), core.bus("A", 16), core.bus("DI", 8)),
+test_component(memory.emuram64k8.create(),
 	[
 		[ True,  False, 0,     123 ],
 		[ True,  False, 1,     42  ],
@@ -33,7 +33,7 @@ test_component(memory.emuram64k8(core.net(), core.net(), core.bus("A", 16), core
 
 
 
-test_component(memory.emuram64k16(core.net(), core.net(), core.bus("A", 16), core.bus("DI", 16)),
+test_component(memory.emuram64k16.create(),
 	[
 		[ True,  False, 0,     123 ],
 		[ True,  False, 1,     42  ],

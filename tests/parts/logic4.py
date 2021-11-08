@@ -7,7 +7,7 @@ from ..common import *
 
 
 
-test_component(logic.not4(core.bus("A", 4)),
+test_component(logic.not4.create(),
 	[
 		[ 0 ], [ 1 ], [ 14 ], [ 15 ],
 	],
@@ -18,7 +18,7 @@ test_component(logic.not4(core.bus("A", 4)),
 
 
 
-test_component(logic.mux4(core.net(), core.bus("A", 4), core.bus("B", 4)),
+test_component(logic.mux4.create(),
 	[
 		[ False, 13, 10 ], [ True, 13, 10 ]
 	],
@@ -29,7 +29,7 @@ test_component(logic.mux4(core.net(), core.bus("A", 4), core.bus("B", 4)),
 
 
 
-test_component(logic.adc4(core.bus("A", 4), core.bus("B", 4), core.net()),
+test_component(logic.adc4.create(),
 	[
 		[ 4,  5,  False ],
 		[ 15, 0,  False ],
@@ -46,7 +46,7 @@ test_component(logic.adc4(core.bus("A", 4), core.bus("B", 4), core.net()),
 
 
 
-test_component(logic.inc4(core.bus("A", 4), core.net("C")),
+test_component(logic.inc4.create(),
 	[
 		[ 0, True ], [ 1, True ], [ 14, True ], [ 15, True ],
 	],
@@ -57,7 +57,7 @@ test_component(logic.inc4(core.bus("A", 4), core.net("C")),
 
 
 
-test_component(logic.sub4(core.bus("A", 4), core.bus("B", 4), core.net("CI")),
+test_component(logic.sub4.create(),
 	[
 		[ 0,  0, False ],
 		[ 1,  0, False ],
@@ -84,7 +84,7 @@ test_component(logic.sub4(core.bus("A", 4), core.bus("B", 4), core.net("CI")),
 
 
 
-test_component(logic.eqz4(core.bus("A", 4)),
+test_component(logic.eqz4.create(),
 	[
 		[ 0      ],
 		[ 1 << 0 ], [ 1 << 1 ], [ 1 << 2 ], [ 1 << 3 ]
@@ -97,7 +97,7 @@ test_component(logic.eqz4(core.bus("A", 4)),
 
 
 
-test_component(logic.ltz4(core.bus("A", 4)),
+test_component(logic.ltz4.create(),
 	[
 		[ 0      ],
 		[ 1 << 0 ], [ 1 << 1 ], [ 1 << 2 ], [ 1 << 3 ]
@@ -110,7 +110,7 @@ test_component(logic.ltz4(core.bus("A", 4)),
 
 
 
-test_component(logic.reg4(core.net(), core.net(), core.bus("A", 4)),
+test_component(logic.reg4.create(),
 	[
 		[ True,  False, 0   ],
 		[ True,  False, 13  ],
@@ -135,7 +135,7 @@ test_component(logic.reg4(core.net(), core.net(), core.bus("A", 4)),
 
 
 
-test_component(logic.ctr4(core.net(), core.net(), core.bus("A", 4), core.net()),
+test_component(logic.ctr4.create(),
 	[
 		[ True,  False, 13, True  ],
 		[ True,  True,  10, True  ],

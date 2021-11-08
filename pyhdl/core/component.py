@@ -102,6 +102,26 @@ def module(name, inputs, outputs):
 			# Generate the component
 			return component(name, net_in, net_out, subs, emit, sim, { **iomap, **attrs })
 
+
+
+		def create():
+
+			argv = []
+
+			for argn, argt in zip(inspect.signature(builder).parameters, inputs + outputs):
+				if   argt    == "N": argv.append(net(argn))
+				elif argt[0] == "B": argv.append(bus(argn.upper(), int(argt[1:])))
+
+			return build_component(*argv)
+
+
+
+		setattr(build_component, 'name',    name)
+		setattr(build_component, 'args',    list(inspect.signature(builder).parameters))
+		setattr(build_component, 'inputs',  inputs)
+		setattr(build_component, 'outputs', outputs)
+		setattr(build_component, 'create',  create)
+
 		return build_component
 
 	return generate_component

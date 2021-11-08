@@ -7,7 +7,7 @@ from ..common import *
 
 
 
-test_component(logic.not16(core.bus("A", 16)),
+test_component(logic.not16.create(),
 	[
 		[ 0 ], [ 1 ], [ 65534 ], [ 65535 ],
 	],
@@ -18,7 +18,7 @@ test_component(logic.not16(core.bus("A", 16)),
 
 
 
-test_component(logic.mux16(core.net(), core.bus("A", 16), core.bus("B", 16)),
+test_component(logic.mux16.create(),
 	[
 		[ False, 420, 69 ], [ True, 420, 69 ]
 	],
@@ -29,7 +29,7 @@ test_component(logic.mux16(core.net(), core.bus("A", 16), core.bus("B", 16)),
 
 
 
-test_component(logic.adc16(core.bus("A", 16), core.bus("B", 16), core.net()),
+test_component(logic.adc16.create(),
 	[
 		[ 10,    15, False ],
 		[ 65535, 0,  False ],
@@ -46,7 +46,7 @@ test_component(logic.adc16(core.bus("A", 16), core.bus("B", 16), core.net()),
 
 
 
-test_component(logic.inc16(core.bus("A", 16), core.net()),
+test_component(logic.inc16.create(),
 	[
 		[ 0, True ], [ 1, True ], [ 65534, True ], [ 65535, True ],
 	],
@@ -57,7 +57,7 @@ test_component(logic.inc16(core.bus("A", 16), core.net()),
 
 
 
-test_component(logic.sub16(core.bus("A", 16), core.bus("B", 16), core.net("CI")),
+test_component(logic.sub16.create(),
 	[
 		[ 0,     0,     False ],
 		[ 1,     0,     False ],
@@ -84,7 +84,7 @@ test_component(logic.sub16(core.bus("A", 16), core.bus("B", 16), core.net("CI"))
 
 
 
-test_component(logic.eqz16(core.bus("A", 16)),
+test_component(logic.eqz16.create(),
 	[
 		[ 0       ],
 		[ 1 <<  0 ], [ 1 <<  1 ], [ 1 <<  2 ], [ 1 <<  3 ],
@@ -103,7 +103,7 @@ test_component(logic.eqz16(core.bus("A", 16)),
 
 
 
-test_component(logic.ltz16(core.bus("A", 16)),
+test_component(logic.ltz16.create(),
 	[
 		[ 0       ],
 		[ 1 <<  0 ], [ 1 <<  1 ], [ 1 <<  2 ], [ 1 <<  3 ],
@@ -122,7 +122,7 @@ test_component(logic.ltz16(core.bus("A", 16)),
 
 
 
-test_component(logic.reg16(core.net(), core.net(), core.bus("A", 16)),
+test_component(logic.reg16.create(),
 	[
 		[ True,  False, 0   ],
 		[ True,  False, 42  ],
@@ -147,7 +147,7 @@ test_component(logic.reg16(core.net(), core.net(), core.bus("A", 16)),
 
 
 
-test_component(logic.ctr16(core.net(), core.net(), core.bus("A", 16), core.net()),
+test_component(logic.ctr16.create(),
 	[
 		[ True,  False, 42,  True ],
 		[ True,  True,  69,  True ],
