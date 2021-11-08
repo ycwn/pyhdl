@@ -13,7 +13,7 @@ class net:
 
 
 
-	def __init__(self, name=None, index=0):
+	def __init__(self, name=None, index=-1):
 
 		if name:
 			self.name  = name
@@ -41,5 +41,6 @@ class net:
 
 
 	def ident(self):
-		return "%s%d" % (self.name, self.index)
+		if self.index < 0: return self.name
+		else:              return "%s%d" % (self.name, self.index)
 
