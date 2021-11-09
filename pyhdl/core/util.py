@@ -23,16 +23,6 @@ def mkconst(name, bits, val):
 
 
 
-def emit(m):
-
-	def e(mm):
-		if mm.emit != None:
-			print(mm.emit())
-
-	m.visit(e, None)
-
-
-
 def simulate(m, inputs):
 
 	for n in range(len(inputs)):

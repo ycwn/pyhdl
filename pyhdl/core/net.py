@@ -31,16 +31,23 @@ class net:
 
 
 	@property
-	def value(self):    return self._value
+	def value(self):
+		return self._value
 
 
 
 	@value.setter
-	def value(self, v): self._value = bool(v)
+	def value(self, v):
+		self._value = bool(v)
 
 
 
 	def ident(self):
 		if self.index < 0: return self.name
 		else:              return "%s%d" % (self.name, self.index)
+
+
+
+	def netnames(self):
+		return [ self.ident() ]
 

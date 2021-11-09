@@ -56,3 +56,8 @@ class bus:
 	def ident(self):
 		return "%s%d:%d" % (self.name, 0, len(self.nets) - 1)
 
+
+
+	def netnames(self):
+		return [ net.ident() for net in self.nets ]
+

@@ -10,10 +10,7 @@ def nand1(a, b, x):
 	def sim():
 		x.value = not (a.value and b.value)
 
-	def emit():
-		return "\tNAND %s, %s, %s" % (x.ident(), a.ident(), b.ident())
-
-	return { 'sim': sim, 'emit': emit }
+	return { 'sim': sim }
 
 
 
@@ -103,7 +100,6 @@ def shl1(a, ci, x, co):
 		buf1(a,  co),
 		buf1(ci, x)
 	]
-
 
 
 

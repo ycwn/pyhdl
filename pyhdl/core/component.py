@@ -73,7 +73,6 @@ def module(name, inputs, outputs):
 			# a function to simulate it, a list of subcomponents
 			# and a list of optional attributes to set
 			net_io  = net_in  + net_out
-			net_oi  = net_out + net_in
 			desc    = builder(*net_io)
 			subs    = []
 			emit    = None
@@ -95,9 +94,9 @@ def module(name, inputs, outputs):
 
 			# Generate a default emitter if one was not supplied
 			if emit == None:
-				emit = lambda: "; COMPONENT %s(%s)" % (
+				emit = lambda: "COMPONENT %s(%s)" % (
 						name,
-						", ".join([ conn.ident() for conn in net_oi ])
+						", ".join([ conn.ident() for conn in net_io ])
 					)
 			# Generate the component
 			return component(name, net_in, net_out, subs, emit, sim, { **iomap, **attrs })
