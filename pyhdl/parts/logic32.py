@@ -196,12 +196,34 @@ def reg32(s, c, d, x):
 
 
 
-@module("CTR32", [ "N", "N", "B32", "N" ], [ "B32", "N" ])
-def ctr32(s, c, d, ci, x, co):
+@module("UCOUNT32", [ "N", "N", "B32", "N" ], [ "B32", "N" ])
+def ucount32(s, c, d, ci, x, co):
 
 	inc = inc32(x, ci, bus(32), co)
 	mux = mux32(s, inc.x, d);
 	reg = reg32(one, c, mux.x, x)
 
 	return [ inc, mux, reg ]
+
+
+
+@module("DCOUNT32", [ "N", "N", "B32", "N" ], [ "B32", "N" ])
+def dcount32(s, c, d, ci, x, co):
+
+	dec = dec32(x, ci, bus(32), co)
+	mux = mux32(s, dec.x, d);
+	reg = reg32(one, c, mux.x, x)
+
+	return [ dec, mux, reg ]
+
+
+
+@module("UDCOUNT32", [ "N", "N", "N", "B32", "N" ], [ "B32", "N" ])
+def udcount32(s, c, ud, d, ci, x, co):
+
+	idc = idc32(x, ud, ci, bus(32), co)
+	mux = mux32(s, idc.x, d);
+	reg = reg32(one, c, mux.x, x)
+
+	return [ idc, mux, reg ]
 

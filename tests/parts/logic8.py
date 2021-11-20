@@ -171,7 +171,7 @@ test_component(logic.reg8.create(),
 
 
 
-test_component(logic.ctr8.create(),
+test_component(logic.ucount8.create(),
 	[
 		[ True,  False, 42, True ],
 		[ True,  True,  69, True ],
@@ -183,7 +183,7 @@ test_component(logic.ctr8.create(),
 		[ True,  True,  0,  True ]
 	],
 	[
-		[  0 ],
+		[ 0  ],
 		[ 42 ],
 		[ 42 ],
 		[ 43 ],
@@ -194,3 +194,68 @@ test_component(logic.ctr8.create(),
 	]
 )
 
+
+
+test_component(logic.dcount8.create(),
+	[
+		[ True,  False, 42, True ],
+		[ True,  True,  69, True ],
+		[ False, False, 0,  True ],
+		[ False, True,  1,  True ],
+		[ False, False, 2,  True ],
+		[ False, True,  3,  True ],
+		[ True,  False, 69, True ],
+		[ True,  True,  0,  True ]
+	],
+	[
+		[ 0  ],
+		[ 42 ],
+		[ 42 ],
+		[ 41 ],
+		[ 41 ],
+		[ 40 ],
+		[ 40 ],
+		[ 69 ]
+	]
+)
+
+
+
+test_component(logic.udcount8.create(),
+	[
+		[ True,  False, False, 42, True ],
+		[ True,  True,  False, 69, True ],
+		[ False, False, False, 0,  True ],
+		[ False, True,  False, 1,  True ],
+		[ False, False, False, 2,  True ],
+		[ False, True,  False, 3,  True ],
+		[ True,  False, False, 69, True ],
+		[ True,  True,  False, 0,  True ],
+		[ True,  False, True,  42, True ],
+		[ True,  True,  True,  69, True ],
+		[ False, False, True,  0,  True ],
+		[ False, True,  True,  1,  True ],
+		[ False, False, True,  2,  True ],
+		[ False, True,  True,  3,  True ],
+		[ True,  False, True,  69, True ],
+		[ True,  True,  True,  0,  True ]
+	],
+	[
+		[ 0  ],
+		[ 42 ],
+		[ 42 ],
+		[ 43 ],
+		[ 43 ],
+		[ 44 ],
+		[ 44 ],
+		[ 69 ],
+		[ 69 ],
+		[ 42 ],
+		[ 42 ],
+		[ 41 ],
+		[ 41 ],
+		[ 40 ],
+		[ 40 ],
+		[ 69 ]
+	]
+)

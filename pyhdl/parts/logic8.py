@@ -167,12 +167,34 @@ def reg8(s, c, d, x):
 
 
 
-@module("CTR8", [ "N", "N", "B8", "N" ], [ "B8", "N" ])
-def ctr8(s, c, d, ci, x, co):
+@module("UCOUNT8", [ "N", "N", "B8", "N" ], [ "B8", "N" ])
+def ucount8(s, c, d, ci, x, co):
 
 	inc = inc8(x, ci, bus(8), co)
 	mux = mux8(s, inc.x, d);
 	reg = reg8(one, c, mux.x, x)
 
 	return [ inc, mux, reg ]
+
+
+
+@module("DCOUNT8", [ "N", "N", "B8", "N" ], [ "B8", "N" ])
+def dcount8(s, c, d, ci, x, co):
+
+	dec = dec8(x, ci, bus(8), co)
+	mux = mux8(s, dec.x, d);
+	reg = reg8(one, c, mux.x, x)
+
+	return [ dec, mux, reg ]
+
+
+
+@module("UDCOUNT8", [ "N", "N", "N", "B8", "N" ], [ "B8", "N" ])
+def udcount8(s, c, ud, d, ci, x, co):
+
+	idc = idc8(x, ud, ci, bus(8), co)
+	mux = mux8(s, idc.x, d);
+	reg = reg8(one, c, mux.x, x)
+
+	return [ idc, mux, reg ]
 

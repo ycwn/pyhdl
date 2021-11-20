@@ -112,7 +112,7 @@ def cpu16(c, iw, di, wr, rd, pc, a, do):
 	mem_rd = mux16(indec.sm, a, di, alu_y)
 
 	jcmp = cmp16(indec.lt, indec.eq, indec.gt, alu.z)
-	pctr = ctr16(jcmp.c, c, a, one, pc)
+	pctr = ucount16(jcmp.c, c, a, one, pc)
 
 	return [ indec, bwr, brd, alu, mem_wr, reg_a, reg_d, mem_rd, jcmp, pctr ]
 

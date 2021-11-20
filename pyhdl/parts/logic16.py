@@ -177,12 +177,34 @@ def reg16(s, c, d, x):
 
 
 
-@module("CTR16", [ "N", "N", "B16", "N" ], [ "B16", "N" ])
-def ctr16(s, c, d, ci, x, co):
+@module("UCOUNT16", [ "N", "N", "B16", "N" ], [ "B16", "N" ])
+def ucount16(s, c, d, ci, x, co):
 
 	inc = inc16(x, ci, bus(16), co)
 	mux = mux16(s, inc.x, d);
 	reg = reg16(one, c, mux.x, x)
 
 	return [ inc, mux, reg ]
+
+
+
+@module("DCOUNT16", [ "N", "N", "B16", "N" ], [ "B16", "N" ])
+def dcount16(s, c, d, ci, x, co):
+
+	dec = dec16(x, ci, bus(16), co)
+	mux = mux16(s, dec.x, d);
+	reg = reg16(one, c, mux.x, x)
+
+	return [ dec, mux, reg ]
+
+
+
+@module("UDCOUNT16", [ "N", "N", "N", "B16", "N" ], [ "B16", "N" ])
+def udcount16(s, c, ud, d, ci, x, co):
+
+	idc = idc16(x, ud, ci, bus(16), co)
+	mux = mux16(s, idc.x, d);
+	reg = reg16(one, c, mux.x, x)
+
+	return [ idc, mux, reg ]
 

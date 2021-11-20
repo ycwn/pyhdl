@@ -161,14 +161,36 @@ def reg4(s, c, d, x):
 
 
 
-@module("CTR4", [ "N", "N", "B4", "N" ], [ "B4", "N" ])
-def ctr4(s, c, d, ci, x, co):
+@module("UCOUNT4", [ "N", "N", "B4", "N" ], [ "B4", "N" ])
+def ucount4(s, c, d, ci, x, co):
 
 	inc = inc4(x, ci, bus(4), co)
 	mux = mux4(s, inc.x, d);
 	reg = reg4(one, c, mux.x, x)
 
 	return [ inc, mux, reg ]
+
+
+
+@module("DCOUNT4", [ "N", "N", "B4", "N" ], [ "B4", "N" ])
+def dcount4(s, c, d, ci, x, co):
+
+	dec = dec4(x, ci, bus(4), co)
+	mux = mux4(s, dec.x, d);
+	reg = reg4(one, c, mux.x, x)
+
+	return [ dec, mux, reg ]
+
+
+
+@module("UDCOUNT4", [ "N", "N", "N", "B4", "N" ], [ "B4", "N" ])
+def udcount4(s, c, ud, d, ci, x, co):
+
+	idc = idc4(x, ud, ci, bus(4), co)
+	mux = mux4(s, idc.x, d);
+	reg = reg4(one, c, mux.x, x)
+
+	return [ idc, mux, reg ]
 
 
 
