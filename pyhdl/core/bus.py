@@ -6,13 +6,13 @@ from .net import *
 class bus:
 
 	nets = []
-	name = ""
+	name = None
 
 
 
-	def __init__(self, name, width):
-		self.name = name
-		self.nets = [ net(name, bit) for bit in range(width) ]
+	def __init__(self, width, **kwargs):
+		self.name = kwargs['name'] if 'name' in kwargs else ""
+		self.nets = [ net(self.name, bit) for bit in range(width) ]
 
 
 
@@ -21,12 +21,40 @@ class bus:
 		subnets = self.nets[n]
 
 		if isinstance(subnets, list):
-			subbus = bus(self.name, 0)
+			subbus = bus(0) if self.name is None else bus(0, name=self.name)
 			subbus.nets = subnets
 			return subbus
 
 		else:
 			return subnets
+
+
+
+	def bundle(*args, **kwargs):
+
+		b = bus(0, **kwargs)
+
+		def collect(argv):
+			for arg in argv:
+				if   isinstance(arg, net): b.nets.append(arg)
+				elif isinstance(arg, bus): b.nets += arg.nets
+				else:
+					argw = []
+					try:    argw = list(arg)
+					except: pass
+
+					if len(argw) == 0:
+						raise Exception("Can't add a %s to a bus" % type(arg))
+
+					collect(argw)
+
+		collect(args)
+		return b
+
+
+
+	def repl(wire, width, **kwargs):
+		return bus.bundle([ wire ] * width, **kwargs)
 
 
 

@@ -14,7 +14,7 @@ one.value  = True
 
 def mkconst(name, bits, val):
 
-	b = bus(name, bits)
+	b = bus(bits, name=name)
 
 	for n in range(bits):
 		b.nets[n] = one if val & (1 << n) else zero

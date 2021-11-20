@@ -70,7 +70,7 @@ DATA = [
 	[ 1, 1, 0 ]
 ]
 
-test_component(memory.rom(DATA, core.bus("R", 8), core.bus("D", 3)),
+test_component(memory.rom(DATA, core.bus(8, name="R"), core.bus(3, name="D")),
 	[
 		[ 0x00 ],
 		[ 0x01 ],

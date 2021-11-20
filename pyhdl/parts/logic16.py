@@ -169,7 +169,7 @@ def reg16(s, c, d, x):
 @module("CTR16", [ "N", "N", "B16", "N" ], [ "B16", "N" ])
 def ctr16(s, c, d, ci, x, co):
 
-	inc = inc16(x, ci, bus("", 16), co)
+	inc = inc16(x, ci, bus(16), co)
 	mux = mux16(s, inc.x, d);
 	reg = reg16(one, c, mux.x, x)
 

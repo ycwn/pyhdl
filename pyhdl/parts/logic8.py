@@ -159,7 +159,7 @@ def reg8(s, c, d, x):
 @module("CTR8", [ "N", "N", "B8", "N" ], [ "B8", "N" ])
 def ctr8(s, c, d, ci, x, co):
 
-	inc = inc8(x, ci, bus("", 8), co)
+	inc = inc8(x, ci, bus(8), co)
 	mux = mux8(s, inc.x, d);
 	reg = reg8(one, c, mux.x, x)
 

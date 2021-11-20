@@ -188,7 +188,7 @@ def reg32(s, c, d, x):
 @module("CTR32", [ "N", "N", "B32", "N" ], [ "B32", "N" ])
 def ctr32(s, c, d, ci, x, co):
 
-	inc = inc32(x, ci, bus("", 32), co)
+	inc = inc32(x, ci, bus(32), co)
 	mux = mux32(s, inc.x, d);
 	reg = reg32(one, c, mux.x, x)
 

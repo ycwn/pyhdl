@@ -153,7 +153,7 @@ def reg4(s, c, d, x):
 @module("CTR4", [ "N", "N", "B4", "N" ], [ "B4", "N" ])
 def ctr4(s, c, d, ci, x, co):
 
-	inc = inc4(x, ci, bus("", 4), co)
+	inc = inc4(x, ci, bus(4), co)
 	mux = mux4(s, inc.x, d);
 	reg = reg4(one, c, mux.x, x)
 

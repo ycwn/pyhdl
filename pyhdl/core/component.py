@@ -65,7 +65,7 @@ def module(name, inputs, outputs):
 			# Generate temporary outputs for the missing ones
 			for n in range(len(net_out), len(outputs)):
 				if   outputs[n]    == "N": net_out.append(net())
-				elif outputs[n][0] == "B": net_out.append(bus("", int(outputs[n][1:])))
+				elif outputs[n][0] == "B": net_out.append(bus(int(outputs[n][1:])))
 
 			# Now call the builder to generate the description,
 			# which can either be a list of subcomponents, or
@@ -109,7 +109,7 @@ def module(name, inputs, outputs):
 
 			for argn, argt in zip(inspect.signature(builder).parameters, inputs + outputs):
 				if   argt    == "N": argv.append(net(argn))
-				elif argt[0] == "B": argv.append(bus(argn.upper(), int(argt[1:])))
+				elif argt[0] == "B": argv.append(bus(int(argt[1:]), name=argn.upper()))
 
 			return build_component(*argv)
 

@@ -132,7 +132,7 @@ def rom(data, rows, bits):
 	nbits = len(data[0])
 
 	def rom_builder(rows, bits):
-		ibits = bus("", bits.width)
+		ibits = bus(bits.width)
 		lines = [ bitline(bit) for bit in ibits.nets ]
 		grid  = romgrid(data, nrows, nbits, rows, ibits, bits)
 

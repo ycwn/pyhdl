@@ -90,8 +90,8 @@ def indec16(x, ci, sm, zx, nx, zy, ny, f, no, a, d, m, lt, eq, gt, w):
 @module("CPU16", [ "N", "B16", "B16" ], [ "N", "N", "B16", "B16", "B16" ])
 def cpu16(c, iw, di, wr, rd, pc, a, do):
 
-	alu_x = bus("X", 16)
-	alu_y = bus("Y", 16)
+	alu_x = bus(16)
+	alu_y = bus(16)
 
 	indec = indec16(iw)
 
@@ -124,11 +124,11 @@ def hack16():
 	wr = net("WR")
 	rd = net("RD")
 
-	i  = bus("I",  16)
-	pc = bus("P",  16)
-	a  = bus("A",  16)
-	di = bus("DI", 16)
-	do = bus("DO", 16)
+	i  = bus(16, name="I")
+	pc = bus(16, name="P")
+	a  = bus(16, name="A")
+	di = bus(16, name="DI")
+	do = bus(16, name="DO")
 
 	clk = clock()
 
