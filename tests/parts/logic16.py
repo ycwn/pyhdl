@@ -84,6 +84,17 @@ test_component(logic.sub16.create(),
 
 
 
+test_component(logic.dec16.create(),
+	[
+		[ 1, True  ], [ 2, True  ], [ 65535, True  ], [ 0,     True ],
+	],
+	[
+		[ 0, False ], [ 1, False ], [ 65534, False ], [ 65535, True ]
+	]
+)
+
+
+
 test_component(logic.eqz16.create(),
 	[
 		[ 0       ],

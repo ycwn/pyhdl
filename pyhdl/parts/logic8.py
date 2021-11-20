@@ -89,6 +89,12 @@ def sub8(a, b, bi, x, bo):
 
 
 
+@module("DEC8", [ "B8", "N" ], [ "B8", "N" ])
+def dec8(a, ci, x, co):
+	return [ sub8(a, mkconst("ZERO", 8, 0), ci, x, co) ]
+
+
+
 @module("SHL8", [ "B8", "N" ], [ "B8", "N" ])
 def shl8(a, ci, x, co):
 	return [

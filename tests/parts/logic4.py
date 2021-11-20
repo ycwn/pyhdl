@@ -84,6 +84,17 @@ test_component(logic.sub4.create(),
 
 
 
+test_component(logic.dec4.create(),
+	[
+		[ 1, True  ], [ 2, True  ], [ 15, True  ], [ 0,  True ],
+	],
+	[
+		[ 0, False ], [ 1, False ], [ 14, False ], [ 15, True ]
+	]
+)
+
+
+
 test_component(logic.eqz4.create(),
 	[
 		[ 0      ],

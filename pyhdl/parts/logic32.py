@@ -89,6 +89,12 @@ def sub32(a, b, bi, x, bo):
 
 
 
+@module("DEC32", [ "B32", "N" ], [ "B32", "N" ])
+def dec32(a, ci, x, co):
+	return [ sub32(a, mkconst("ZERO", 32, 0), ci, x, co) ]
+
+
+
 @module("SHL32", [ "B32", "N" ], [ "B32", "N" ])
 def shl32(a, ci, x, co):
 	return [

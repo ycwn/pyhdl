@@ -89,6 +89,12 @@ def sub4(a, b, bi, x, bo):
 
 
 
+@module("DEC4", [ "B4", "N" ], [ "B4", "N" ])
+def dec4(a, ci, x, co):
+	return [ sub4(a, mkconst("ZERO", 4, 0), ci, x, co) ]
+
+
+
 @module("SHL4", [ "B4", "N" ], [ "B4", "N" ])
 def shl4(a, ci, x, co):
 	return [

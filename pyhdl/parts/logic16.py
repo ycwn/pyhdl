@@ -89,6 +89,12 @@ def sub16(a, b, bi, x, bo):
 
 
 
+@module("DEC16", [ "B16", "N" ], [ "B16", "N" ])
+def dec16(a, ci, x, co):
+	return [ sub16(a, mkconst("ZERO", 16, 0), ci, x, co) ]
+
+
+
 @module("SHL16", [ "B16", "N" ], [ "B16", "N" ])
 def shl16(a, ci, x, co):
 	return [
