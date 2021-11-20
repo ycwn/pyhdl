@@ -48,10 +48,12 @@ test_component(logic.adc8.create(),
 
 test_component(logic.inc8.create(),
 	[
-		[ 0, True ], [ 1, True ], [ 254, True ], [ 255, True ],
+		[ 0, True  ], [ 1, True  ], [ 254, True  ], [ 255, True  ],
+		[ 0, False ], [ 1, False ], [ 254, False ], [ 255, False ]
 	],
 	[
-		[ 1 ], [ 2 ], [ 255 ], [ 0 ]
+		[ 1, False ], [ 2, False ], [ 255, False ], [ 0,   True  ],
+		[ 0, False ], [ 1, False ], [ 254, False ], [ 255, False ]
 	]
 )
 
@@ -86,10 +88,12 @@ test_component(logic.sub8.create(),
 
 test_component(logic.dec8.create(),
 	[
-		[ 1, True  ], [ 2, True  ], [ 255, True  ], [ 0,   True ],
+		[ 1, True  ], [ 2, True  ], [ 255, True  ], [ 0, True  ],
+		[ 1, False ], [ 2, False ], [ 255, False ], [ 0, False ]
 	],
 	[
-		[ 0, False ], [ 1, False ], [ 254, False ], [ 255, True ]
+		[ 0, False ], [ 1, False ], [ 254, False ], [ 255, True  ],
+		[ 1, False ], [ 2, False ], [ 255, False ], [ 0,   False ]
 	]
 )
 

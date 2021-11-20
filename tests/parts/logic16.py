@@ -48,10 +48,12 @@ test_component(logic.adc16.create(),
 
 test_component(logic.inc16.create(),
 	[
-		[ 0, True ], [ 1, True ], [ 65534, True ], [ 65535, True ],
+		[ 0, True  ], [ 1, True  ], [ 65534, True  ], [ 65535, True  ],
+		[ 0, False ], [ 1, False ], [ 65534, False ], [ 65535, False ]
 	],
 	[
-		[ 1 ], [ 2 ], [ 65535 ], [ 0 ]
+		[ 1, False ], [ 2, False ], [ 65535, False ], [ 0,     True  ],
+		[ 0, False ], [ 1, False ], [ 65534, False ], [ 65535, False ]
 	]
 )
 
@@ -86,10 +88,12 @@ test_component(logic.sub16.create(),
 
 test_component(logic.dec16.create(),
 	[
-		[ 1, True  ], [ 2, True  ], [ 65535, True  ], [ 0,     True ],
+		[ 1, True  ], [ 2, True  ], [ 65535, True  ], [ 0, True  ],
+		[ 1, False ], [ 2, False ], [ 65535, False ], [ 0, False ]
 	],
 	[
-		[ 0, False ], [ 1, False ], [ 65534, False ], [ 65535, True ]
+		[ 0, False ], [ 1, False ], [ 65534, False ], [ 65535, True  ],
+		[ 1, False ], [ 2, False ], [ 65535, False ], [ 0,     False ]
 	]
 )
 

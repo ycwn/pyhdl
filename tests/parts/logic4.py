@@ -48,10 +48,12 @@ test_component(logic.adc4.create(),
 
 test_component(logic.inc4.create(),
 	[
-		[ 0, True ], [ 1, True ], [ 14, True ], [ 15, True ],
+		[ 0, True  ], [ 1, True  ], [ 14, True  ], [ 15, True  ],
+		[ 0, False ], [ 1, False ], [ 14, False ], [ 15, False ]
 	],
 	[
-		[ 1 ], [ 2 ], [ 15 ], [ 0 ]
+		[ 1, False ], [ 2, False ], [ 15, False ], [ 0,  True  ],
+		[ 0, False ], [ 1, False ], [ 14, False ], [ 15, False ]
 	]
 )
 
@@ -86,10 +88,12 @@ test_component(logic.sub4.create(),
 
 test_component(logic.dec4.create(),
 	[
-		[ 1, True  ], [ 2, True  ], [ 15, True  ], [ 0,  True ],
+		[ 1, True  ], [ 2, True  ], [ 15, True  ], [ 0, True  ],
+		[ 1, False ], [ 2, False ], [ 15, False ], [ 0, False ]
 	],
 	[
-		[ 0, False ], [ 1, False ], [ 14, False ], [ 15, True ]
+		[ 0, False ], [ 1, False ], [ 14, False ], [ 15, True  ],
+		[ 1, False ], [ 2, False ], [ 15, False ], [ 0,  False ]
 	]
 )
 

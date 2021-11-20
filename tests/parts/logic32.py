@@ -48,10 +48,12 @@ test_component(logic.adc32.create(),
 
 test_component(logic.inc32.create(),
 	[
-		[ 0, True ], [ 1, True ], [ 4294967294, True ], [ 4294967295, True ],
+		[ 0, True  ], [ 1, True  ], [ 4294967294, True  ], [ 4294967295, True  ],
+		[ 0, False ], [ 1, False ], [ 4294967294, False ], [ 4294967295, False ]
 	],
 	[
-		[ 1 ], [ 2 ], [ 4294967295 ], [ 0 ]
+		[ 1, False ], [ 2, False ], [ 4294967295, False ], [ 0,          True  ],
+		[ 0, False ], [ 1, False ], [ 4294967294, False ], [ 4294967295, False ]
 	]
 )
 
@@ -86,10 +88,12 @@ test_component(logic.sub32.create(),
 
 test_component(logic.dec32.create(),
 	[
-		[ 1, True  ], [ 2, True  ], [ 4294967295, True ], [ 0,           True ],
+		[ 1, True  ], [ 2, True  ], [ 4294967295, True  ], [ 0, True  ],
+		[ 1, False ], [ 2, False ], [ 4294967295, False ], [ 0, False ]
 	],
 	[
-		[ 0, False ], [ 1, False ], [ 4294967294, False ], [ 4294967295, True ]
+		[ 0, False ], [ 1, False ], [ 4294967294, False ], [ 4294967295, True  ],
+		[ 1, False ], [ 2, False ], [ 4294967295, False ], [ 0,          False ]
 	]
 )
 
