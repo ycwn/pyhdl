@@ -99,6 +99,23 @@ test_component(logic.dec4.create(),
 
 
 
+test_component(logic.idc4.create(),
+	[
+		[ 0, False, True  ], [ 1, False, True  ], [ 14, False, True  ], [ 15, False, True  ],
+		[ 1, True,  True  ], [ 2, True,  True  ], [ 15, True,  True  ], [ 0,  True,  True  ],
+		[ 0, False, False ], [ 1, False, False ], [ 14, False, False ], [ 15, False, False ],
+		[ 1, True,  False ], [ 2, True,  False ], [ 15, True,  False ], [ 0,  True,  False ]
+	],
+	[
+		[ 1, False ], [ 2, False ], [ 15, False ], [ 0,  True  ],
+		[ 0, False ], [ 1, False ], [ 14, False ], [ 15, True  ],
+		[ 0, False ], [ 1, False ], [ 14, False ], [ 15, False ],
+		[ 1, False ], [ 2, False ], [ 15, False ], [ 0,  False ]
+	]
+)
+
+
+
 test_component(logic.eqz4.create(),
 	[
 		[ 0      ],

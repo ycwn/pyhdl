@@ -95,6 +95,17 @@ def dec16(a, ci, x, co):
 
 
 
+@module("IDC16", [ "B16", "N", "N" ], [ "B16", "N" ])
+def idc16(a, ud, ci, x, co):
+
+	cbi = xor1(ci, ud)
+	adc = adc16(a, bus.repl(ud, 16), cbi.x, x)
+	bco = xor1(adc.co, ud, co)
+
+	return [ cbi, adc, bco ]
+
+
+
 @module("SHL16", [ "B16", "N" ], [ "B16", "N" ])
 def shl16(a, ci, x, co):
 	return [

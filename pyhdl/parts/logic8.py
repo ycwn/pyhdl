@@ -95,6 +95,17 @@ def dec8(a, ci, x, co):
 
 
 
+@module("IDC8", [ "B8", "N", "N" ], [ "B8", "N" ])
+def idc8(a, ud, ci, x, co):
+
+	cbi = xor1(ci, ud)
+	adc = adc8(a, bus.repl(ud, 8), cbi.x, x)
+	bco = xor1(adc.co, ud, co)
+
+	return [ cbi, adc, bco ]
+
+
+
 @module("SHL8", [ "B8", "N" ], [ "B8", "N" ])
 def shl8(a, ci, x, co):
 	return [

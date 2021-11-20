@@ -95,6 +95,17 @@ def dec32(a, ci, x, co):
 
 
 
+@module("IDC32", [ "B32", "N", "N" ], [ "B32", "N" ])
+def idc32(a, ud, ci, x, co):
+
+	cbi = xor1(ci, ud)
+	adc = adc32(a, bus.repl(ud, 32), cbi.x, x)
+	bco = xor1(adc.co, ud, co)
+
+	return [ cbi, adc, bco ]
+
+
+
 @module("SHL32", [ "B32", "N" ], [ "B32", "N" ])
 def shl32(a, ci, x, co):
 	return [

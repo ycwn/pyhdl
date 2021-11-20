@@ -95,6 +95,17 @@ def dec4(a, ci, x, co):
 
 
 
+@module("IDC4", [ "B4", "N", "N" ], [ "B4", "N" ])
+def idc4(a, ud, ci, x, co):
+
+	cbi = xor1(ci, ud)
+	adc = adc4(a, bus.repl(ud, 4), cbi.x, x)
+	bco = xor1(adc.co, ud, co)
+
+	return [ cbi, adc, bco ]
+
+
+
 @module("SHL4", [ "B4", "N" ], [ "B4", "N" ])
 def shl4(a, ci, x, co):
 	return [
